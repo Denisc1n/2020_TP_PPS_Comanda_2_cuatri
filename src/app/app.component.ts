@@ -26,13 +26,12 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.show()
       this.splashScreen.hide();
-
       if(this.splash) {
         setTimeout(() => {
            this.splash = false;
-           //this.router.navigate(['login']);
+           this.router.navigate(['login']);
          },5000);
        }
     });

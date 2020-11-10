@@ -1,28 +1,40 @@
+
 <div class="contenedor">
   <h1>Buenos Muchachos</h1>
   <div class="contenedorLogin">
-      <form action="">
+    <div class="button">
+      <input type="button" value="Usuario" id="botonUsuario" (click)="mostrarLogin()">
+    </div>
+      <form (ngSubmit)="loguear()" id="formUsuario">
         <div class="datos">
-          <ion-input type="text" id="correo" placeholder="Correo electrónico" maxlength="25" clear-input (ionFocus)='focus("correo")' (ionBlur)='noFocus("correo")'></ion-input>
+          <ion-input type="text" id="correo" placeholder="Correo electrónico" maxlength="35" clear-input (ionFocus)='focus("correo")' (ionBlur)='noFocus("correo")'></ion-input>
           <br>
           <ion-input type="password" id="pass" placeholder="Contraseña" maxlength="25" minlength="4" clear-input (ionFocus)='focus("pass")' (ionBlur)='noFocus("pass")'></ion-input>
         </div>
         <div class="button">
-          <input type="submit" value="Ingresar" id="submit" >
-          <p class="texto-registro">No estás registrado? <span id="registrate">Registrate</span></p>
+          <input type="submit" value="Ingresar" id="submit">
         </div>
-        
-        <div class="mensaje" id="mensaje" hidden>
+        <div class="mensaje" id="mensajeLogin" style="display: none;">
           <span id="mensajeTexto"></span>
-          <ion-icon name="close-outline" ></ion-icon>
         </div>
       </form>
+      <div class="button">
+        <input type="button" value="Invitado" id="botonInvitado" (click)="mostrarInvitado()">
+      </div>
+      <form id="formInvitado">
+        <div class="container-avatar">
+          <img src="../../../assets/img/userDefault.png" alt="">
+        </div>
+        <ion-input type="text" id="nombreInvitado" placeholder="Nombre" maxlength="35" clear-input (ionFocus)='focus("nombreInvitado")' (ionBlur)='noFocus("nombreInvitado")'></ion-input>
+        <div class="button">
+          <input type="submit" value="Ingresar" id="submit">
+        </div>
+      </form>
+      <div class="container-texto-registro">
+        <p class="texto-registro">No estás registrado? <span id="registrate">Registrate</span></p>
+      </div>
   </div>
   <div class="usuarios">
-    
+    <ion-icon name="restaurant-outline" *ngFor="let usuarios of this.listado" (click)="completar(usuarios.correo)"></ion-icon>
   </div>
-  <div id="loading" class="loading" hidden>
-    <img src="../../../assets/imagenes/loading.gif" alt="">
-  </div>
-  <ion-backdrop id="backdrop" hidden></ion-backdrop>
 </div>

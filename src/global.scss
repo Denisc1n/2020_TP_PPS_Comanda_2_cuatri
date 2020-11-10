@@ -31,11 +31,27 @@
 }
 
 @font-face {
-    font-family: 'resto';
-    src: url('./assets/fuentes/Hot Restaurant.ttf');
+    font-family: 'cicero';
+    src: url('./assets/fuentes/CiceroSerif.ttf');
 }
 
-@font-face {
-    font-family: 'ageo';
-    src: url('./assets/fuentes/AgeoPersonalUse-Medium.otf');
+
+#backdrop {
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color:  rgba(0, 0, 0, 0.76);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#spinner {
+    width: 300px;
+    height: 300px;
 }
