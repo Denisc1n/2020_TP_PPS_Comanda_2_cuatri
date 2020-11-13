@@ -30,7 +30,7 @@ export class AppComponent {
       this.splashScreen.hide();
       if(this.splash) { 
         setTimeout(() => {
-           this.splash = false;
+          this.splash = false;
           this.router.navigate(['login']);
          },5000);
        }

@@ -27,7 +27,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.spinner.activateFor("backdrop",3000);
     this.getUsers();
-
   }
 
   focus(id) {
@@ -91,17 +90,13 @@ export class LoginPage implements OnInit {
       this.fireService.loginEmail(this.email, this.pass).then((user) => {
         this.pass = ""
         $("#pass").val("");
-
-        this.spinner.activateAndRedirect("backdrop",3000,"home");
+          this.spinner.activateAndRedirect("backdrop",3000,"home");
       }).catch((error) =>{
-        console.log(error)
+        console.error(error)
         this.textoMostrar(error.code);
-        this.vibrationService.error()
+        this.vibrationService.error();
       })
     }
-
-    
-
   }
 
   textoMostrar(msj){
@@ -199,18 +194,24 @@ export class LoginPage implements OnInit {
     if(nombre != ""){
       let id = nombre + '_' + this.utilidadService.getDateTime();
       let photoUrl;
-      if(this.invitedPhoto != undefined)
-      {
-        this.fireService.uploadPhoto(this.invitedPhoto, `clientesInvitados/${id}`).then((foto)=> {
-          photoUrl = foto;
-          this.fireService.createDocInDB('clientesInvitados', id, {nombre: nombre, foto: photoUrl, id: id});
-        });
-      }
-      else{
-        photoUrl = 'default';
-        this.fireService.createDocInDB('clientesInvitados', id, {nombre: nombre, foto: photoUrl, id: id});
-      }
-      
+
+      this.fireService.registerAsAnonymously().then((id:any) => {
+
+          if(this.invitedPhoto != undefined)
+          {
+            this.fireService.uploadPhoto(this.invitedPhoto, `clientesInvitados/${id}`).then((foto)=> {
+              photoUrl = foto;
+              this.fireService.createDocInDB('clientesInvitados', id, {nombre: nombre, foto: photoUrl, id: id});
+              this.spinner.activateAndRedirect("backdrop",3000,"home");
+            });
+          }
+          else{
+            photoUrl = 'default';
+            this.fireService.createDocInDB('clientesInvitados', id, {nombre: nombre, foto: photoUrl, id: id});
+            this.spinner.activateAndRedirect("backdrop",3000,"home");
+          }
+
+      })
     }
     else{
       this.utilidadService.textoMostrar("#mensajeTexto", "Campo nombre requerido", "#mensajeLogin", "");

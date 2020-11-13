@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 import { DuenioComponent } from '../components/duenio/duenio.component';
 import { MozoComponent } from '../components/mozo/mozo.component';
 import { ClienteComponent } from '../components/cliente/cliente.component';
+import { SolicitudesComponent } from '../components/solicitudes/solicitudes.component';
+import { MetreComponent } from '../components/metre/metre.component';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
@@ -21,6 +23,8 @@ import { HomePageRoutingModule } from './home-routing.module';
     HomePage,
     DuenioComponent,
     MozoComponent,
-    ClienteComponent]
+    ClienteComponent,
+    SolicitudesComponent,
+    MetreComponent]
 })
 export class HomePageModule {}
