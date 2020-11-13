@@ -37,9 +37,12 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "./node_modules/aos/dist/aos.css"
               }
             ],
-            "scripts": []
+            "scripts": ["./node_modules/aos/dist/aos.js"]
           },
           "configurations": {
             "production": {
@@ -128,9 +131,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -176,8 +177,7 @@
     }
   },
   "cli": {
-    "defaultCollection": "@ionic/angular-toolkit",
-    "analytics": "8770441c-2952-4261-9a03-c4027262cf3f"
+    "defaultCollection": "@ionic/angular-toolkit"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

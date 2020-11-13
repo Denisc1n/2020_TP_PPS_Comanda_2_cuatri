@@ -36,8 +36,8 @@ import { CommonModule } from "@angular/common";
     Vibration,
     Camera,
     BarcodeScanner,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

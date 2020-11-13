@@ -11,7 +11,10 @@ export class ClienteComponent implements OnInit {
 
   currentUser
   dataCurrentUser
+  estaEnMesa:boolean;
+  mesaOcupada:string;
   listaEspera: boolean;
+  encuesta = false;
 
   constructor(private QRService:QRScannerService, private fireService:FirebaseService) {
     this.currentUser = fireService.getCurrentUser()
@@ -64,15 +67,23 @@ export class ClienteComponent implements OnInit {
               { 
                 case 'Mesa 1 Buenos Muchachos':
                   this.fireService.updateDoc("mesas", a.text, this.dataCurrentUser)
+                  this.estaEnMesa = true;
+                  this.mesaOcupada = 'Mesa 1 Buenos Muchachos';
                   break;
                 case 'Mesa 2 Buenos Muchachos':
                   this.fireService.updateDoc("mesas", a.text, this.dataCurrentUser)
+                  this.estaEnMesa = true;
+		  this.mesaOcupada = 'Mesa 2 Buenos Muchachos';
                   break;
                 case 'Mesa 3 Buenos Muchachos':
                   this.fireService.updateDoc("mesas", a.text, this.dataCurrentUser)
+                  this.estaEnMesa = true;
+                  this.mesaOcupada = 'Mesa 3 Buenos Muchachos';
                   break;
                 case 'Mesa 4 Buenos Muchachos':
                   this.fireService.updateDoc("mesas", a.text, this.dataCurrentUser)
+                  this.estaEnMesa = true;
+                  this.mesaOcupada = 'Mesa 4 Buenos Muchachos';
                   break;
                 default:
                   console.log("el qr no es el correcto");
@@ -84,5 +95,9 @@ export class ClienteComponent implements OnInit {
         }
       })
     })
+  }
+
+  scanEncuesta(){
+    
   }
 }

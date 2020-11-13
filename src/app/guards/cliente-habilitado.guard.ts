@@ -5,7 +5,7 @@ import { FirebaseService } from '../servicios/firebase.service';
 import { UtilidadService } from '../servicios/utilidad.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class ClienteHabilitadoGuard implements CanActivate {
 
