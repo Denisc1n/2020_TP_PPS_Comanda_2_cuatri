@@ -4,6 +4,7 @@ import { FirebaseService } from "src/app/servicios/firebase.service";
 import { PedidosService } from "src/app/servicios/pedidos.service";
 import { UtilidadService } from "src/app/servicios/utilidad.service";
 import { VibrationService } from "src/app/servicios/vibration.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-cliente",
@@ -28,7 +29,8 @@ export class ClienteComponent implements OnInit {
     private fireService: FirebaseService,
     private pedidoService: PedidosService,
     private utilidadService: UtilidadService,
-    private vibrationService: VibrationService
+    private vibrationService: VibrationService,
+    private route: Router
   ) {
     this.currentUser = fireService.getCurrentUser();
 
@@ -203,6 +205,7 @@ export class ClienteComponent implements OnInit {
           this.pago = true;
           this.opt = "";
           this.estadoCliente = "despedida";
+          this.route.navigate(["login"]);
         } else {
           console.error("todavia no pagaste bro");
           this.utilidadService.textoMostrar(

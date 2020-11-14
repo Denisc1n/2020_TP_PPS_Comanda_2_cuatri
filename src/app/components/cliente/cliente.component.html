@@ -47,9 +47,6 @@
     <div class="salir" (click)="irse()"><span>Salir</span></div>
   </div>
 </div>
-<div class="despedida" *ngIf="this.estadoCliente == 'despedida'">
-  <p>¡Gracias por su visita, vuelva pronto!</p>
-</div>
 <div class="estado-pedido" *ngIf="opt == 'estadoPedido'">
   <app-estado-pedido (volver)="opt = $event"></app-estado-pedido>
 </div>

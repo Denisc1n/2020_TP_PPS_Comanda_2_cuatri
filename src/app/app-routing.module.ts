@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'menu',
     loadChildren: () => import('./components/menu/menu.component').then( m => m.MenuComponent)
+  },
+  {
+    path: 'despedida',
+    loadChildren: () => import('./components/cliente/cliente-despedida/cliente-despedida.component').then( m => m.ClienteDespedidaComponent)
   }
 
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+
 import { HomePage } from './home.page';
 import { DuenioComponent } from '../components/duenio/duenio.component';
 import { HomeMozoComponent } from '../components/mozo/home-mozo/home-mozo.component';
@@ -20,8 +21,11 @@ import { CocineroComponent } from '../components/cocinero/cocinero.component';
 import { EncuestaComponent } from '../components/encuesta/encuesta.component';
 import { PedidosPendientesComponent } from '../components/mozo/pedidos-pendientes/pedidos-pendientes.component';
 import { EstadoPedidoComponent } from '../components/estado-pedido/estado-pedido.component';
+import { ClienteDespedidaComponent } from '../components/cliente/cliente-despedida/cliente-despedida.component';
+
 import { ComidaNuevoPipe } from '../pipes/comida-nuevo.pipe';
 import { BebidaNuevoPipe } from '../pipes/bebida-nuevo.pipe';
+
 
 @NgModule({
   imports: [
@@ -49,6 +53,7 @@ import { BebidaNuevoPipe } from '../pipes/bebida-nuevo.pipe';
     EncuestaComponent,
     PedidosPendientesComponent,
     EstadoPedidoComponent,
+    ClienteDespedidaComponent,
     ComidaNuevoPipe,
     BebidaNuevoPipe]
 })
