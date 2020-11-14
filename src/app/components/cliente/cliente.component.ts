@@ -201,6 +201,7 @@ export class ClienteComponent implements OnInit {
         if (!a.pagoPendiente) {
           this.fireService.removeFromWaitingList(this.currentUser.email);
           this.pago = true;
+          this.opt = "";
           this.estadoCliente = "despedida";
         } else {
           console.error("todavia no pagaste bro");
