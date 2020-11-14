@@ -20,12 +20,15 @@ export class PedidosService {
   }
 
   addOrderToOrders(order, table, totalAmount){
-    let obs = this.db.collection('pedidos').doc(table).valueChanges().subscribe((data:any)=>{
-      data.total = totalAmount;
-      data.productos = order;
-      data.estado = 'pendiente';
-      this.db.collection('pedidos').doc(table).update(data).then(a=>obs.unsubscribe());
-    })
+    // let obs = this.db.collection('pedidos').doc(table).valueChanges().subscribe((data:any)=>{
+    //   console.log(data);
+    //   console.log(table);
+    //   data.total = totalAmount;
+    //   data.productos = order;
+    //   data.estado = 'pendiente';      
+    // })
+
+    this.db.collection('pedidos').doc(`${table}`).update({total: totalAmount, productos: order, estado: "pendiente"});
   }
   sendQuery(query:string, table){
     this.db.collection('mesas').doc(table).update({consulta: query});

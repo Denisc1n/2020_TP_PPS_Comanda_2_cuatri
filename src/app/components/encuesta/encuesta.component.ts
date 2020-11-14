@@ -8,13 +8,15 @@ import { UtilidadService } from 'src/app/servicios/utilidad.service';
   styleUrls: ['./encuesta.component.scss'],
 })
 export class EncuestaComponent implements OnInit {
-
+  
   constructor(private fire : FirebaseService, private utilidad : UtilidadService) { }
 
   cometario:string;
   @Input() mesa:string;
+  @Input() mesaEncuesta:string;
   @Output() cancelar : EventEmitter<any> = new EventEmitter<any>();
   @Output() finalizar : EventEmitter<any> = new EventEmitter<any>();
+  
   files = [];
   path = [];
   mesaData:any;
@@ -22,7 +24,7 @@ export class EncuestaComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.fire.getTable(this.mesa).then((data) =>
+    this.fire.getTable(this.mesa??this.mesaEncuesta).then((data) =>
     {
       this.mesaData=data; 
     });
@@ -81,7 +83,7 @@ export class EncuestaComponent implements OnInit {
     }
 
     this.subirEncuesta();
-    this.fire.updateDoc("mesas", this.mesa, this.mesaData);
+    this.fire.updateDoc("mesas", this.mesa??this.mesaEncuesta, this.mesaData);
     this.uploadAllPhotos();
     this.finalizar.emit("pagar");
   }

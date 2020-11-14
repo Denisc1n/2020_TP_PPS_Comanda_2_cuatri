@@ -12,18 +12,18 @@
     <img src="../../../assets/img/qr.png" alt="">
   </div>
   <div class="opcionesCliente" *ngIf="this.estadoCliente == 'opts'">
-      <div (click)="opt = 'estadoPedido'"><span>Estado del pedido</span></div>
-      <div (click)="opt = 'encuesta'"><span>Encuesta</span></div>
+      <div (click)="opt = 'estadoPedido'" *ngIf="!encuestaTerminada"><span>Estado del pedido</span></div>
+      <div (click)="opt = 'encuesta'" *ngIf="!encuestaTerminada"><span>Encuesta</span></div>
       <div *ngIf="encuestaTerminada" (click)="pagar()"><span>Pedir cuenta</span></div>
   </div>  
 </div>
 
 <div class="menu-comidas" *ngIf="estadoCliente == 'enMesa'">
-  <app-menu (terminoPedido)="estadoCliente = $event" [mesaOcupada]="mesaOcupada"></app-menu>
+  <app-menu (terminoPedido)="estadoCliente = $event" [recibirMesa]="mesaPedido" [mesaOcupada]="mesaOcupada"></app-menu>
 </div>
 
 <div class="encuesta-satisfaccion" *ngIf="opt == 'encuesta'">
-  <app-encuesta [mesa]="this.mesaOcupada" (cancelar)="opt = $event;" (finalizar)="opt = $event; encuestaTerminada = true"></app-encuesta>
+  <app-encuesta [mesa]="this.mesaOcupada" [mesaEncuesta]="mesaPedido" (cancelar)="opt = $event;" (finalizar)="finalizar($event)"></app-encuesta>
 </div>
 
 <div class="btn-pedir-cuenta" *ngIf="opt == 'pagar'">

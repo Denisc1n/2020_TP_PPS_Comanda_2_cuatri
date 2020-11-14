@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { QRScannerService } from 'src/app/servicios/qrscanner.service';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { PedidosService } from 'src/app/servicios/pedidos.service';
@@ -11,11 +11,11 @@ import { VibrationService } from 'src/app/servicios/vibration.service';
   styleUrls: ['./cliente.component.scss'],
 })
 export class ClienteComponent implements OnInit {
-
+  mesaPedido: string;
   currentUser;
   dataCurrentUser;
   mesaOcupada:string;
-  estadoCliente:string = "opts";
+  estadoCliente:string = null;
   encuesta:boolean = false;
   pago:boolean;
   mesaParaPagar:any;
@@ -26,24 +26,28 @@ export class ClienteComponent implements OnInit {
   constructor(private QRService:QRScannerService, private fireService:FirebaseService, private pedidoService:PedidosService, private utilidadService:UtilidadService, private vibrationService:VibrationService) {
     this.currentUser = fireService.getCurrentUser()
 
-   if(!this.currentUser.isAnonymous){
+    if(!this.currentUser.isAnonymous){
       fireService.getDBByDoc('cliente', this.currentUser.email).then(data=>this.dataCurrentUser=data);
-      fireService.getClientInTable(this.currentUser.email).then((data) => {
+      fireService.getClientInTable(this.currentUser.email).then((data:any) => {        
         if(!data)
         {
           this.clienteEnMesa = false;
         }
         else
         {
-          this.clienteEnMesa = true;
+          this.clienteEnMesa = true;          
+          this.mesaPedido = data[0].nombre;
           this.estadoCliente = 'enMesa';
         }
       }).then(() => {
         if(!this.clienteEnMesa)
         {
+          console.log("mesa? " + this.clienteEnMesa)
           this.fireService.getWaitingList(this.currentUser.email).then((data:any) => {
+            console.log("data? " + data)
             if(data != undefined)
               this.estadoCliente = 'listaEspera';
+            
           });
         }
       })
@@ -162,16 +166,16 @@ export class ClienteComponent implements OnInit {
 
   pagar()
   {
-    this.fireService.getTable(this.mesaOcupada).then((datos:any) => {
+    this.fireService.getTable(this.mesaOcupada??this.mesaPedido).then((datos:any) => {
       datos.pagoPendiente = true;
       this.opt = 'pagar';
       this.mesaParaPagar = datos;
-      this.fireService.updateDoc("mesas", this.mesaOcupada, datos);
+      this.fireService.updateDoc("mesas", this.mesaOcupada??this.mesaPedido, datos);
     })
   }
 
   irse(){
-    this.pedidoService.isPaymentPending(this.mesaOcupada).then((a:any)=>{
+    this.pedidoService.isPaymentPending(this.mesaOcupada??this.mesaPedido).then((a:any)=>{
       if(!a.pagoPendiente){
         this.pago = true;
         this.estadoCliente='despedida';
@@ -182,5 +186,13 @@ export class ClienteComponent implements OnInit {
         this.vibrationService.error()
       }
     })
+  }
+
+  finalizar($event)
+  {
+    console.log($event);
+    this.encuestaTerminada = true;
+    this.estadoCliente = 'opts';
+    this.opt = '';
   }
 }

@@ -26,7 +26,7 @@ export class PedidosComponent implements OnInit {
     let hora = Date.prototype.getUTCHours()
     if(option == 'habilitar')
         pedido.estado = 'proceso'
-
+    
     this.fireService.updateDoc("mesas", `Mesa ${pedido.numero} Buenos Muchachos`, pedido)
 
     this.Actualizar();

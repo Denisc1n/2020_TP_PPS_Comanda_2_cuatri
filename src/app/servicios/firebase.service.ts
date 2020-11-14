@@ -198,9 +198,9 @@ export class FirebaseService {
     getClientInTable(email)
     {
       return new Promise((resolve,reject) => {
-        this.db.collection('mesas', ref => { return ref.where('correo', '==', email)})
-        .valueChanges().subscribe((pedidos:any) => {
-          if(!pedidos)
+        this.db.collection('mesas', ref => { return ref.where('cliente.correo', '==', email)})
+        .valueChanges().subscribe((pedidos:any) => {          
+          if(pedidos.length == 0)
           { 
             resolve(null);
           }
@@ -240,6 +240,14 @@ export class FirebaseService {
         }
       })
     }
+
+    async getClientTableName(email): Promise<string> {
+      const tableDoc = await this.db
+      .collection("mesas").ref.where("cliente.correo", "==", email).get()
+
+      return tableDoc.docs[0].id
+    }
+
     sendNotification(value:string, doc:string){
       this.db.collection('notificaciones').doc(doc).update({email: value})
     }

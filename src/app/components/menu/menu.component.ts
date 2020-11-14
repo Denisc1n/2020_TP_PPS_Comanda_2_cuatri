@@ -12,6 +12,8 @@ export class MenuComponent implements OnInit {
 
   @Output() terminoPedido:EventEmitter<any> = new EventEmitter<any>()
   @Input() mesaOcupada:string
+  @Input() recibirMesa:string
+  
   listadoPedido = {platos: {milanesa:{cantidad:0, precio: 330},fideos:{cantidad:0, precio:230}, muzzarelitas:{cantidad:0, precio:190}, hamburguesa:{cantidad:0, precio:280}},
                    bebidas: {gaseosa:{cantidad: 0, precio: 100}, agua:{cantidad: 0, precio: 80}, cerveza:{cantidad: 0, precio: 60}},
                    postres: {chocotorta:{cantidad: 0, precio: 70}, helado: {cantidad: 0, precio: 80}, flan:{cantidad: 0, precio: 50}}};
@@ -19,7 +21,7 @@ export class MenuComponent implements OnInit {
   orderConfirmation:boolean = false;
   menu:string = 'platos'
   abrirConsulta:boolean = false;
-  consulta:string;
+  consulta:string;  
 
   constructor(private pedidosService:PedidosService, private fireService:FirebaseService) { }
 
@@ -63,15 +65,18 @@ export class MenuComponent implements OnInit {
   }
 
   agregarPedido(){
-    let pendienteBebida:boolean = false;
-    let pendienteComida:boolean = false;
-    if(this.listadoPedido.bebidas.agua.cantidad > 0 || this.listadoPedido.bebidas.gaseosa.cantidad > 0 || this.listadoPedido.bebidas.cerveza.cantidad > 0)
-      pendienteBebida = true;
-    if(this.listadoPedido.platos.fideos.cantidad > 0 || this.listadoPedido.platos.hamburguesa.cantidad > 0 || this.listadoPedido.platos.milanesa.cantidad > 0 || this.listadoPedido.platos.muzzarelitas.cantidad > 0 || this.listadoPedido.postres.chocotorta.cantidad > 0 || this.listadoPedido.postres.flan.cantidad > 0 || this.listadoPedido.postres.helado.cantidad > 0)
-      pendienteComida = true;
-    this.pedidosService.addOrderToOrders(this.listadoPedido, 'Mesa 1 Buenos Muchachos',this.totalAmount);
-    this.pedidosService.addOrderToTable(this.listadoPedido, 'Mesa 1 Buenos Muchachos', this.totalAmount, pendienteComida, pendienteBebida);
-    this.terminoPedido.emit('encuesta');
+        let pendienteBebida:boolean = false;
+          let pendienteComida:boolean = false;
+          
+          if(this.listadoPedido.bebidas.agua.cantidad > 0 || this.listadoPedido.bebidas.gaseosa.cantidad > 0 || this.listadoPedido.bebidas.cerveza.cantidad > 0)
+            pendienteBebida = true;
+          if(this.listadoPedido.platos.fideos.cantidad > 0 || this.listadoPedido.platos.hamburguesa.cantidad > 0 || this.listadoPedido.platos.milanesa.cantidad > 0 || this.listadoPedido.platos.muzzarelitas.cantidad > 0 || this.listadoPedido.postres.chocotorta.cantidad > 0 || this.listadoPedido.postres.flan.cantidad > 0 || this.listadoPedido.postres.helado.cantidad > 0)
+            pendienteComida = true;
+          
+        console.log(this.recibirMesa);
+        this.pedidosService.addOrderToOrders(this.listadoPedido, this.mesaOcupada??this.recibirMesa, this.totalAmount);
+        this.pedidosService.addOrderToTable(this.listadoPedido, this.mesaOcupada??this.recibirMesa, this.totalAmount, pendienteComida, pendienteBebida);
+        this.terminoPedido.emit('encuesta');      
   }
 
   enviarConsulta(){
