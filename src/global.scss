@@ -1,0 +1,98 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+    font-family: 'boli';
+    src: url('./assets/fuentes/Bolina.otf');
+}
+
+@font-face {
+    font-family: 'resto';
+    src: url('./assets/fuentes/Hot-Restaurant.ttf');
+}
+
+@font-face {
+    font-family: 'cicero';
+    src: url('./assets/fuentes/CiceroSerif.ttf');
+}
+
+
+#backdrop {
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color:  rgba(0, 0, 0, 0.76);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#spinner {
+    width: 300px;
+    height: 300px;
+}
+.modal-error-general {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 35%;
+    z-index: 5;
+}
+
+.modal-error-img-general {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background: #fcfefc;
+}
+
+.modal-error-img-general img {
+    width: 60%;
+}
+
+.modal-error-text-general {
+    height: 40%;
+    background: #7a0101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 5;
+}
+
+.modal-error-text-general p {
+    font-size: 1.5em;
+}

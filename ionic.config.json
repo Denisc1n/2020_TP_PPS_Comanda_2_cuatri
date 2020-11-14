@@ -1,0 +1,7 @@
+{
+  "name": "buenos_muchachos",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
