@@ -15,6 +15,13 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { HomeMetreComponent  } from '../components/metre/home-metre/home-metre.component'
 import { HomePageRoutingModule } from './home-routing.module';
 import { ListaEsperaComponent  } from '../components/metre/lista-espera/lista-espera.component'
+import { BartenderComponent } from '../components/bartender/bartender.component';
+import { CocineroComponent } from '../components/cocinero/cocinero.component';
+import { EncuestaComponent } from '../components/encuesta/encuesta.component';
+import { PedidosPendientesComponent } from '../components/mozo/pedidos-pendientes/pedidos-pendientes.component';
+import { EstadoPedidoComponent } from '../components/estado-pedido/estado-pedido.component';
+import { ComidaNuevoPipe } from '../pipes/comida-nuevo.pipe';
+import { BebidaNuevoPipe } from '../pipes/bebida-nuevo.pipe';
 
 @NgModule({
   imports: [
@@ -36,6 +43,13 @@ import { ListaEsperaComponent  } from '../components/metre/lista-espera/lista-es
     PedidosComponent,
     ConsultasComponent,
     ListaEsperaComponent,
-    ListadoMesasComponent]
+    ListadoMesasComponent,
+    BartenderComponent,
+    CocineroComponent,
+    EncuestaComponent,
+    PedidosPendientesComponent,
+    EstadoPedidoComponent,
+    ComidaNuevoPipe,
+    BebidaNuevoPipe]
 })
 export class HomePageModule {}

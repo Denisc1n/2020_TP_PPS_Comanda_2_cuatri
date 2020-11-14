@@ -17,9 +17,20 @@ import { Vibration } from "@ionic-native/vibration/ngx";
 import { Camera } from "@ionic-native/camera/ngx";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { CommonModule } from "@angular/common";
+import { HttpClientModule } from '@angular/common/http';
+import { ComidasPipe } from './pipes/comidas.pipe';
+import { BebidasPipe } from './pipes/bebidas.pipe';
+import { ComidaNuevoPipe } from './pipes/comida-nuevo.pipe';
+import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,   
+    ComidasPipe,
+    BebidasPipe,
+    ComidaNuevoPipe,
+    BebidaNuevoPipe 
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -29,6 +40,7 @@ import { CommonModule } from "@angular/common";
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    HttpClientModule,    
   ],
   providers: [
     StatusBar,
@@ -36,6 +48,8 @@ import { CommonModule } from "@angular/common";
     Vibration,
     Camera,
     BarcodeScanner,
+    ComidasPipe,
+    BebidasPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

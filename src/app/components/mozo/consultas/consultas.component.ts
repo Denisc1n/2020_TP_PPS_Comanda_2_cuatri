@@ -9,20 +9,39 @@ import { FirebaseService } from 'src/app/servicios/firebase.service';
 export class ConsultasComponent implements OnInit {
 
   @Output() volver:EventEmitter<any>=new EventEmitter<any>()
-  consultas:any;
+  mesas: any;
+  consultaConfirmation: boolean = false;
+  consultaMesa: any;
 
   constructor(private fireService : FirebaseService) {
-    this.actualizarLista()
+    
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.actualizarLista()
+  }
 
   back(){
     this.volver.emit('home')
   }
 
   actualizarLista(){
-    this.fireService.getDB("mesas").then(datos=>this.consultas=datos)
+    this.fireService.getClientQuery().then((datos)=>{console.log(datos); this.mesas=datos}/*datos=>this.mesas=datos*/)
+    
+
+  }
+
+  cerrarConsulta() {
+    this.consultaMesa.cliente.consulta = ""
+    this.fireService.updateDoc("mesas", `Mesa ${this.consultaMesa.numero} Buenos Muchachos`, this.consultaMesa);
+    this.actualizarLista();
+  }
+
+  seleccionarMesa(mesa)
+  {
+    this.consultaConfirmation = true;
+    this.consultaMesa = mesa;
+    console.log(mesa);
   }
 
 }

@@ -23,6 +23,7 @@ export class FirebaseService {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email,pass)
       .then(userData => {
+        console.log(userData)
         resolve(userData)
        
       }, err => reject (err)).catch( e=>reject(e))
@@ -81,6 +82,10 @@ export class FirebaseService {
      
   createDocInDB(collection:string, docName:string, data:any){
     this.db.collection(collection).doc(docName).set(data);
+  }
+  createDocRandomInDB(collection:string,data:any)
+  {
+    this.db.collection(collection).add(data);
   }
 
   getDBByDoc(collection:string, docName:string){
@@ -166,6 +171,46 @@ export class FirebaseService {
         },error=>reject(error))
       })
     }
+    getPendingOrder()
+    {
+      return new Promise((resolve,reject) => {
+        this.db.collection('mesas', ref => { return ref.where('estado', '==', 'pendiente')}).valueChanges().subscribe((pedidos:any) => {
+          resolve(pedidos);
+        },error=>reject(error))
+      })
+    }
+    getClientQuery()
+    {
+      return new Promise((resolve,reject) => {
+        this.db.collection('mesas', ref => { return ref.where('cliente.consulta', '>', '')}).valueChanges().subscribe((pedidos:any) => {
+          if(!pedidos)
+          { 
+            resolve([]);
+          }
+          else
+          {
+            resolve(pedidos);
+          }
+        },error=>reject(error))
+      })
+    }
+
+    getClientInTable(email)
+    {
+      return new Promise((resolve,reject) => {
+        this.db.collection('mesas', ref => { return ref.where('correo', '==', email)})
+        .valueChanges().subscribe((pedidos:any) => {
+          if(!pedidos)
+          { 
+            resolve(null);
+          }
+          else
+          {
+            resolve(pedidos);
+          }
+        },error=>reject(error))
+      })
+    }
     
     updateDoc(collection:string, doc:string, data:any)
     {
@@ -185,9 +230,17 @@ export class FirebaseService {
     getTable(id:string)
     {
       return new Promise((resolve, reject) => {
+        if(id == "Mesa 1 Buenos Muchachos" || id == "Mesa 2 Buenos Muchachos" || id == "Mesa 3 Buenos Muchachos" || id == "Mesa 4 Buenos Muchachos"){
         this.db.collection("mesas").doc(id).valueChanges().subscribe((datos) => {
           resolve(datos);
         },error => reject(error));
+        }
+        else{
+          resolve(undefined);
+        }
       })
+    }
+    sendNotification(value:string, doc:string){
+      this.db.collection('notificaciones').doc(doc).update({email: value})
     }
 }

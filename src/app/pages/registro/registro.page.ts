@@ -59,11 +59,13 @@ export class RegistroPage implements OnInit {
           this.servicio.uploadPhoto(this.file, `${this.perfilSeleccionado.toLowerCase()}/${this.correo}`).then((datos) => {
             this.url = <string>datos;
             this.servicio.createDocInDB(`${this.perfilSeleccionado.toLowerCase()}`, this.correo, this.toJSON());
+            this.servicio.sendNotification(this.correo, 'dueño')
           });
         }
         else{
           this.url = 'default';
           this.servicio.createDocInDB(`${this.perfilSeleccionado.toLowerCase()}`, this.correo, this.toJSON());
+          this.servicio.sendNotification(this.correo, 'dueño')
         }
 
         $("#form-button-register").addClass("animation");
@@ -73,6 +75,7 @@ export class RegistroPage implements OnInit {
 
       }).catch((error)=>{
         this.s_utilidad.textoMostrar("#modal-error-text-p","Usuario ya existente", "#modal-error", ".container-registro")
+        this.vibrationService.error()
       })
     }
     else{
@@ -88,10 +91,12 @@ export class RegistroPage implements OnInit {
     if(!regex.test(this.correo))
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","El campo debe ser de tipo correo", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else if(this.correo == "")
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","Correo requerido", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else
     {
@@ -108,10 +113,12 @@ export class RegistroPage implements OnInit {
     if(this.clave == "")
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","Contraseña requerida", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else if(this.clave.length < 6)
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","La clave debe ser mayor a 6 digitos", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else
     {
@@ -129,14 +136,17 @@ export class RegistroPage implements OnInit {
     if(this.nombre == "")
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","Nombre requerido", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else if(this.apellido == "")
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","Contraseña requerida", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else if(!regexLetras.test(this.nombre) || !regexLetras.test(this.apellido))
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","El campo debe incluir solo letras", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else
     {
@@ -154,14 +164,17 @@ export class RegistroPage implements OnInit {
     if(this.dni == undefined)
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","Dni requerido", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else if(!regexNumero.test(this.dni.toString()))
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","El campo dni debe ser de tipo numerico", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else if(this.dni.toString().length != 8)
     {
       this.s_utilidad.textoMostrar("#modal-error-text-p","El campo dni debe poseer 8 numeros", "#modal-error", ".container-registro");
+      this.vibrationService.error()
     }
     else
     {
@@ -181,14 +194,17 @@ export class RegistroPage implements OnInit {
       if(this.cuil == undefined)
       {
         this.s_utilidad.textoMostrar("#modal-error-text-p","Cuil requerido", "#modal-error", ".container-registro");
+        this.vibrationService.error()
       }
       else if(!regexNumero.test(this.cuil.toString()))
       {
         this.s_utilidad.textoMostrar("#modal-error-text-p","El campo cuil tiene formato incorrecto", "#modal-error", ".container-registro");
+        this.vibrationService.error()
       }
       else if(this.cuil.toString().length != 13)
       {
         this.s_utilidad.textoMostrar("#modal-error-text-p","El campo cuil debe poseer 13 caracteres", "#modal-error", ".container-registro");
+        this.vibrationService.error()
       }
       else{
         retorno = true
@@ -206,6 +222,7 @@ export class RegistroPage implements OnInit {
     if(this.perfil != 'cliente'){
       if(this.perfilSeleccionado == 'cliente' || this.perfilSeleccionado == 'Seleccione tipo usuario'){
         this.s_utilidad.textoMostrar("#modal-error-text-p", ' Seleccione un perfil de empleado', "#modal-error", ".container-registro")
+        this.vibrationService.error()
         flag = true
       }
     }

@@ -12,14 +12,7 @@ export class PedidosComponent implements OnInit {
   pedidos:any;
 
   constructor(private fireService : FirebaseService) {
-    this.fireService.getDisabledClient().then((datos) => {
-      this.pedidos = datos;
-      console.log(this.pedidos);
-
-      if(this.pedidos.length == 0){
-        document.getElementById("msj-solicitudes").innerHTML = "No hay pedidos pendientes";
-      }
-    })
+  this.Actualizar();
    }
 
   ngOnInit() {}
@@ -30,20 +23,28 @@ export class PedidosComponent implements OnInit {
 
   cambiarEstado(option:string,pedido:any)
   {
-    let i = this.pedidos.indexOf(pedido);
-    this.pedidos.splice(i, 1);
-
+    let hora = Date.prototype.getUTCHours()
     if(option == 'habilitar')
-        pedido.habilitado = 'aceptado'
-    else
-        pedido.habilitado = 'rechazado'
+        pedido.estado = 'proceso'
 
-    //this.fireService.updateDoc("pedido", pedido.correo, pedido)
+    this.fireService.updateDoc("mesas", `Mesa ${pedido.numero} Buenos Muchachos`, pedido)
 
-    console.log(this.pedidos);
+    this.Actualizar();
+    if(pedido.pendienteComida)
+      this.fireService.sendNotification(`Mesa ${pedido.numero} - ${hora}`, 'cocinero')
+    if(pedido.pendienteBebida)
+      this.fireService.sendNotification(`Mesa ${pedido.numero} - ${hora}`, 'bartender')
+  
+  }
 
-    if(this.pedidos.length == 0){
-      document.getElementById("msj-solicitudes").innerHTML = "No hay solicitudes pendientes";
-    }
+  Actualizar() {
+    this.fireService.getPendingOrder().then((datos) => {
+      this.pedidos = datos;
+      
+
+      if(this.pedidos.length == 0){
+        document.getElementById("msj-pedidos").innerHTML = "No hay pedidos pendientes";
+      }
+    })
   }
 }
