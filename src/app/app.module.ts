@@ -18,16 +18,13 @@ import { Camera } from "@ionic-native/camera/ngx";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from '@angular/common/http';
-import { ComidasPipe } from './pipes/comidas.pipe';
-import { BebidasPipe } from './pipes/bebidas.pipe';
+
 import { ComidaNuevoPipe } from './pipes/comida-nuevo.pipe';
 import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,   
-    ComidasPipe,
-    BebidasPipe,
     ComidaNuevoPipe,
     BebidaNuevoPipe 
   ],
@@ -48,8 +45,6 @@ import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
     Vibration,
     Camera,
     BarcodeScanner,
-    ComidasPipe,
-    BebidasPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -81,9 +81,9 @@ export class EncuestaComponent implements OnInit {
       this.mesaData.pedido.propina = this.propina
       this.mesaData.pedido.totalConPropina = this.mesaData.pedido.total;
     }
-
+    
     this.subirEncuesta();
-    this.fire.updateDoc("mesas", this.mesa??this.mesaEncuesta, this.mesaData);
+    this.fire.updateDoc("mesas", this.mesa ?? this.mesaEncuesta, this.mesaData);
     this.uploadAllPhotos();
     this.finalizar.emit("pagar");
   }

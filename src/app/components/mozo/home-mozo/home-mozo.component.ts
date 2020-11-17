@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-home-mozo',
@@ -10,9 +11,10 @@ export class HomeMozoComponent implements OnInit {
 
   redirect = 'home'
 
-  firstTimeConsulta = true;
-  firstTimeComida = true;
-  firstTimeBebida = true;
+  firstTimeConsulta = 0;
+  firstTimeComida = 0;
+  firstTimeBebida = 0;
+  
   constructor(private db:AngularFirestore) { }
 
   ngOnInit() {    
@@ -22,18 +24,42 @@ export class HomeMozoComponent implements OnInit {
 
   }
 activarNotificacionConsulta(){
-  if(!this.firstTimeConsulta){
-    alert('consulta nueva')
+  
+  if(this.firstTimeConsulta > 0){
+    $("#notificacion-push").css("top","2%");
+      $("#content-title").text("Nueva consulta");
+      $("#content-msj").text("Tiene una nueva consulta");
+
+      setTimeout(() => {
+        $("#notificacion-push").css("top","-15%");
+      }, 3000);
   }
+  this.firstTimeConsulta += 1;
 }
 activarNotificacionComida(){
-  if(!this.firstTimeComida){
-    alert('comida lista')
+  
+  if(this.firstTimeComida > 0){
+    $("#notificacion-push").css("top","2%");
+      $("#content-title").text("Actualizacion pedido");
+      $("#content-msj").text("Ya está la comida lista!");
+
+      setTimeout(() => {
+        $("#notificacion-push").css("top","-15%");
+      }, 3000);
+    }
+    this.firstTimeComida += 1;
   }
-}
-activarNotificacionBebida(){
-  if(!this.firstTimeBebida){
-    alert('birra servida')
+
+  activarNotificacionBebida(){
+    if(this.firstTimeBebida > 0){
+      $("#notificacion-push").css("top","2%");
+      $("#content-title").text("Actualizacion pedido");
+      $("#content-msj").text("Ya está la bebida lista!");
+
+      setTimeout(() => {
+        $("#notificacion-push").css("top","-15%");
+      }, 3000);    
+    }
+    this.firstTimeBebida += 1;
   }
-}
 }

@@ -1,19 +1,20 @@
-import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFirestore } from "angularfire2/firestore";
-import { storage } from "firebase";
-import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {storage, functions} from 'firebase'
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
+import { FunctionCall } from '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: "root",
 })
 export class FirebaseService {
-  constructor(
-    private afAuth: AngularFireAuth,
-    private db: AngularFirestore,
-    private camera: Camera
-  ) {}
+
+  
+  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore,/*private snap: AngularFirestoreDocument ,*/ private camera:Camera,private http : HttpClient) { }
 
   logout() {
     return this.afAuth.auth.signOut();
@@ -327,4 +328,15 @@ export class FirebaseService {
   removeFromWaitingList(email) {
     this.db.collection("listaEspera").doc(email).delete();
   }
+  
+ sendEmail(cliente:any, cuerpo:any, subject:string)
+    {
+      this.http.post(`https://us-central1-comandita-bce01.cloudfunctions.net/mailer`, {
+            to: cliente.correo,
+            message: cuerpo,
+            subject: subject 
+            }).subscribe(res=>{
+              console.log(res);
+            });  
+    }	
 }

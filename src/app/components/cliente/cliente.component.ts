@@ -225,4 +225,8 @@ export class ClienteComponent implements OnInit {
     this.estadoCliente = "opts";
     this.opt = "";
   }
+  salir(){
+    this.opt = undefined
+  }
+  
 }

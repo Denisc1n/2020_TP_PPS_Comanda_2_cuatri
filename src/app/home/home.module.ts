@@ -22,7 +22,7 @@ import { EncuestaComponent } from '../components/encuesta/encuesta.component';
 import { PedidosPendientesComponent } from '../components/mozo/pedidos-pendientes/pedidos-pendientes.component';
 import { EstadoPedidoComponent } from '../components/estado-pedido/estado-pedido.component';
 import { ClienteDespedidaComponent } from '../components/cliente/cliente-despedida/cliente-despedida.component';
-
+import { ChangeStatusColorDirective } from '../directives/change-status-color.directive'
 import { ComidaNuevoPipe } from '../pipes/comida-nuevo.pipe';
 import { BebidaNuevoPipe } from '../pipes/bebida-nuevo.pipe';
 
@@ -55,6 +55,7 @@ import { BebidaNuevoPipe } from '../pipes/bebida-nuevo.pipe';
     EstadoPedidoComponent,
     ClienteDespedidaComponent,
     ComidaNuevoPipe,
-    BebidaNuevoPipe]
+    BebidaNuevoPipe,
+    ChangeStatusColorDirective]
 })
 export class HomePageModule {}

@@ -2,6 +2,7 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from 'src/app/servicios/firebase.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PedidosService } from 'src/app/servicios/pedidos.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-cocinero',
@@ -13,7 +14,7 @@ export class CocineroComponent implements OnInit {
   @Output() volver:EventEmitter<any>=new EventEmitter<any>()
   consultas:any;
   mesaSeleccionada:any;
-  firstTime = true;
+  firstTime = 0;
 
   constructor(private fireService : FirebaseService, private db:AngularFirestore, private pedidosService:PedidosService) {
     this.actualizarLista()
@@ -41,12 +42,20 @@ export class CocineroComponent implements OnInit {
   {
     (<HTMLInputElement>document.querySelector(".ctn-lista-mesas")).style.filter = "none";
     this.mesaSeleccionada = null;
+    this.actualizarLista();
   }
 
   activarNotificacion(){
-    if(!this.firstTime){
-      alert('nuevo elemento en lista de espera')
+    if(this.firstTime > 0){
+      $("#notificacion-push").css("top","2%");
+      $("#content-title").text("Actualizacion pedido");
+      $("#content-msj").text("Tiene un nuevo pedido de comida");
+
+      setTimeout(() => {
+        $("#notificacion-push").css("top","-15%");
+      }, 3000);
     }
+    this.firstTime += 1;
   }
 
   terminarPedido(numeroMesa){

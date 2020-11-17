@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseService  } from 'src/app/servicios/firebase.service';
 
+import { AngularFirestore } from 'angularfire2/firestore';
+
 @Component({
   selector: 'app-lista-espera',
   templateUrl: './lista-espera.component.html',
@@ -12,20 +14,13 @@ export class ListaEsperaComponent implements OnInit {
   clienteSeleccionado : any;
   @Output()volver : EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private fireService : FirebaseService) 
+  constructor(private fireService : FirebaseService,private db: AngularFirestore) 
   {
-    /*this.fireService.getDB("listaEspera").then((datos) => {
-      this.clientes = datos;
-      console.log(this.clientes);
-
-      if(this.clientes.length == 0){
-        document.getElementById("msj-espera").innerHTML = "No hay clientes en espera";
-      }
-    })*/
     this.traerLista();
   }
 
   ngOnInit(){
+    //this.fireService.snapshotsarasa(this.traerLista());
   }
 
   back() {
@@ -36,7 +31,6 @@ export class ListaEsperaComponent implements OnInit {
   {
     this.fireService.getDB("listaEspera").then((datos) => {
       this.clientes = datos;
-      console.log(this.clientes);
 
       if(this.clientes.length == 0){
         document.getElementById("msj-espera").innerHTML = "No hay clientes en espera";
