@@ -84,7 +84,7 @@ El cocinero posee una pantalla integra de atencion y vision de pedidos.
 El bartender posee una pantalla integra de atencion y vision de pedidos.
 ![](src/assets/readmePictures/bartender-main.PNG "Pantalla:")
 
-#Hoja de Ruta:
+# Hoja de Ruta:
 
 Semana del 18 de Octubre al 24 de Octubre:
 Se realizaron las primeras definiciones del modelo.
@@ -106,10 +106,9 @@ Implementacion de Iconos, implementacion de los codigos QR en el repositorio con
 Confeccion del README.md.
 
 Semana del 15 al 22 de Noviembre (Pre Entrega con Nota):
-Notificaciones Push (Adrian Brizuela/Denis Leonel Pedemonte)
-Pantallas para ver estado del pedido (Adrian Brizuela)
-Testeo en multiples dispositivos(Denis Leonel Pedemonte/Adrian Brizuela)
-Implementacion de Pipes propios para personalizar muestro de informacion (A definir)
+Adrian Brizuela Notificaciones Push, Testeo en dispositivos, Implementacion de pipes)
+Denis Leonel Pedemonte Notificaciones Push, cambios en el README, credenciales Gmail, bugfixes, testeo en dispositivos, Pantalla de estado de pedido, Implementacion de Pipes)
+
 
 
 
