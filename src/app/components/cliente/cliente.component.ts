@@ -107,69 +107,70 @@ export class ClienteComponent implements OnInit {
   }
 
   scanMesa() {
+    let aux: any = this.currentUser.isAnonymous
+      ? this.currentUser.uid
+      : this.currentUser.email;
     this.QRService.scan().then((a: any) => {
-      this.fireService
-        .getWaitingList(this.currentUser.email)
-        .then((datos: any) => {
-          if (datos != undefined) {
-            this.fireService.getTable(a.text).then((data: any) => {
-              if (this.estadoCliente == "listaEspera" && data != undefined) {
-                if (!data.ocupada) {
-                  data.ocupada = true;
-                  data.cliente = this.dataCurrentUser;
-                  switch (a.text) {
-                    case "Mesa 1 Buenos Muchachos":
-                      this.fireService.updateDoc("mesas", a.text, data);
-                      this.estadoCliente = "enMesa";
-                      this.mesaOcupada = "Mesa 1 Buenos Muchachos";
-                      break;
+      this.fireService.getWaitingList(aux).then((datos: any) => {
+        if (datos != undefined) {
+          this.fireService.getTable(a.text).then((data: any) => {
+            if (this.estadoCliente == "listaEspera" && data != undefined) {
+              if (!data.ocupada) {
+                data.ocupada = true;
+                data.cliente = this.dataCurrentUser;
+                switch (a.text) {
+                  case "Mesa 1 Buenos Muchachos":
+                    this.fireService.updateDoc("mesas", a.text, data);
+                    this.estadoCliente = "enMesa";
+                    this.mesaOcupada = "Mesa 1 Buenos Muchachos";
+                    break;
 
-                    case "Mesa 2 Buenos Muchachos":
-                      this.fireService.updateDoc("mesas", a.text, data);
-                      this.estadoCliente = "enMesa";
-                      this.mesaOcupada = "Mesa 2 Buenos Muchachos";
-                      break;
+                  case "Mesa 2 Buenos Muchachos":
+                    this.fireService.updateDoc("mesas", a.text, data);
+                    this.estadoCliente = "enMesa";
+                    this.mesaOcupada = "Mesa 2 Buenos Muchachos";
+                    break;
 
-                    case "Mesa 3 Buenos Muchachos":
-                      this.fireService.updateDoc("mesas", a.text, data);
-                      this.estadoCliente = "enMesa";
-                      this.mesaOcupada = "Mesa 3 Buenos Muchachos";
-                      break;
+                  case "Mesa 3 Buenos Muchachos":
+                    this.fireService.updateDoc("mesas", a.text, data);
+                    this.estadoCliente = "enMesa";
+                    this.mesaOcupada = "Mesa 3 Buenos Muchachos";
+                    break;
 
-                    case "Mesa 4 Buenos Muchachos":
-                      this.fireService.updateDoc("mesas", a.text, data);
-                      this.estadoCliente = "enMesa";
-                      this.mesaOcupada = "Mesa 4 Buenos Muchachos";
-                      break;
+                  case "Mesa 4 Buenos Muchachos":
+                    this.fireService.updateDoc("mesas", a.text, data);
+                    this.estadoCliente = "enMesa";
+                    this.mesaOcupada = "Mesa 4 Buenos Muchachos";
+                    break;
 
-                    default:
-                      console.error("el qr no es el correcto");
-                      this.utilidadService.textoMostrar(
-                        "#modal-error-text-p-general",
-                        "El QR no es el correcto",
-                        "#modal-error-general",
-                        "#container-client"
-                      );
-                      this.vibrationService.error();
-                  }
-                } else {
-                  console.error("mesa ocupada");
-                  this.utilidadService.textoMostrar(
-                    "#modal-error-text-p-general",
-                    "La mesa se encuentra ocupada",
-                    "#modal-error-general",
-                    "#container-client"
-                  );
-                  this.vibrationService.error();
+                  default:
+                    console.error("el qr no es el correcto");
+                    this.utilidadService.textoMostrar(
+                      "#modal-error-text-p-general",
+                      "El QR no es el correcto",
+                      "#modal-error-general",
+                      "#container-client"
+                    );
+                    this.vibrationService.error();
                 }
-              } else if (this.estadoCliente == "encuesta") {
-                this.estadoCliente = "opts";
               } else {
-                console.log("Codigo incorrecto");
+                console.error("mesa ocupada");
+                this.utilidadService.textoMostrar(
+                  "#modal-error-text-p-general",
+                  "La mesa se encuentra ocupada",
+                  "#modal-error-general",
+                  "#container-client"
+                );
+                this.vibrationService.error();
               }
-            });
-          }
-        });
+            } else if (this.estadoCliente == "encuesta") {
+              this.estadoCliente = "opts";
+            } else {
+              console.log("Codigo incorrecto");
+            }
+          });
+        }
+      });
     });
   }
 
@@ -225,8 +226,7 @@ export class ClienteComponent implements OnInit {
     this.estadoCliente = "opts";
     this.opt = "";
   }
-  salir(){
-    this.opt = undefined
+  salir() {
+    this.opt = undefined;
   }
-  
 }

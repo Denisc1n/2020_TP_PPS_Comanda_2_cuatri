@@ -1,23 +1,32 @@
-const functions = require("firebase-functions");
-const nodemailer = require("nodemailer");
-const express = require("express");
-const cors = require("cors");
+/*const {SENDER_EMAIL, SENDER_PASSWORD} = process.env;
+exports.sendEmailNotification = functions.firestore.document("cliente/{docId}").onCreate((snap,ctx) =>{
+    const data = snap.data();
+    let authData = nodemailer.createTransport({host: 'smtp.gmail.com', port: 465, secure: true, auth: {user: SENDER_EMAIL, pass: SENDER_PASSWORD}});
+    authData.sendMail({from: 'lasdivasrestaurant@gmail.com', to: `${data.email}`, subject: 'Las divas restaurant', text: 'procesando solicitud',html: "dasdsadas"})
+    .then(success => console.log(success + "se ejecuto piola"))
+    .catch(error => console.log(error));
+});*/
+
+const functions = require('firebase-functions');
+const nodemailer = require('nodemailer');
+const express = require('express');
+const cors = require('cors');
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+if(process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
 }
 
 const app = express();
-app.use(cors({ origin: true }));
+app.use(cors({origin: true}));
 
 app.post("/", (req, res) => {
-  const { body } = req;
-  const isValidMessage = body.message && body.to && body.subject;
+    const {body} = req;
+    const isValidMessage = body.message && body.to && body.subject;
 
-  if (!isValidMessage) {
-    return res.status(400).send({ message: "Invalid request" });
-  }
+    if(!isValidMessage) {
+        return res.status(400).send({ message: "Invalid request" });
+    }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",

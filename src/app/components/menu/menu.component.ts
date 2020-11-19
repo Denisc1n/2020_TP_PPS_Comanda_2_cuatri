@@ -82,6 +82,6 @@ export class MenuComponent implements OnInit {
   enviarConsulta(){
     this.pedidosService.sendQuery(this.consulta, this.mesaOcupada);
     this.abrirConsulta = false;
-    this.fireService.sendNotification(this.fireService.getCurrentUser().email, 'mozoConsulta')
+    this.fireService.sendNotification(Math.floor(Math.random() * (10000 - 1) + 1), 'mozoConsulta')
   }
 }

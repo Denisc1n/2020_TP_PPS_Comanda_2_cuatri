@@ -18,7 +18,7 @@ import { Camera } from "@ionic-native/camera/ngx";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from '@angular/common/http';
-
+import * as $ from 'jquery';
 import { ComidaNuevoPipe } from './pipes/comida-nuevo.pipe';
 import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
 

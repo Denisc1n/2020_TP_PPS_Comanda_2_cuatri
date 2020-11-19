@@ -321,7 +321,7 @@ export class FirebaseService {
     return tableDoc.docs[0].id;
   }
 
-  sendNotification(value: string, doc: string) {
+    sendNotification(value:any, doc:string){
     this.db.collection("notificaciones").doc(doc).update({ email: value });
   }
 
