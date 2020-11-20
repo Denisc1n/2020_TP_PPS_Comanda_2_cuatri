@@ -54,7 +54,7 @@ export class HomeMozoComponent implements OnInit {
     if (this.firstTimeComida > 0) {
       $("#notificacion-push").css("top", "2%");
       $("#content-title").text("Actualizacion pedido");
-      $("#content-msj").text("Ya est� la comida lista!");
+      $("#content-msj").text("Ya está la comida lista!");
 
       setTimeout(() => {
         $("#notificacion-push").css("top", "-15%");
