@@ -239,7 +239,7 @@ export class FirebaseService {
     return new Promise((resolve, reject) => {
       this.db
         .collection("mesas", (ref) => {
-          return ref.where("cliente.consulta", ">", "");
+          return ref.where("consulta", ">", "");
         })
         .valueChanges()
         .subscribe(
@@ -260,6 +260,26 @@ export class FirebaseService {
       this.db
         .collection("mesas", (ref) => {
           return ref.where("cliente.correo", "==", email);
+        })
+        .valueChanges()
+        .subscribe(
+          (pedidos: any) => {
+            if (pedidos.length == 0) {
+              resolve(null);
+            } else {
+              resolve(pedidos);
+            }
+          },
+          (error) => reject(error)
+        );
+    });
+  }
+
+  getAnonymousClientInTable(uid) {
+    return new Promise((resolve, reject) => {
+      this.db
+        .collection("mesas", (ref) => {
+          return ref.where("cliente.id", "==", uid);
         })
         .valueChanges()
         .subscribe(
@@ -328,7 +348,11 @@ export class FirebaseService {
   }
 
   sendNotification(value: any, doc: string) {
-    this.db.collection("notificaciones").doc(doc).update({ email: value });
+    console.log(doc);
+    this.db
+      .collection("notificaciones")
+      .doc(doc)
+      .update({ email: "AAA", emitida: false });
   }
 
   removeFromWaitingList(email) {

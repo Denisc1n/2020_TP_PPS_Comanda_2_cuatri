@@ -106,8 +106,9 @@ export class MenuComponent implements OnInit {
       this.listadoPedido.bebidas.agua.cantidad > 0 ||
       this.listadoPedido.bebidas.gaseosa.cantidad > 0 ||
       this.listadoPedido.bebidas.cerveza.cantidad > 0
-    )
+    ) {
       pendienteBebida = true;
+    }
     if (
       this.listadoPedido.platos.fideos.cantidad > 0 ||
       this.listadoPedido.platos.hamburguesa.cantidad > 0 ||
@@ -116,10 +117,9 @@ export class MenuComponent implements OnInit {
       this.listadoPedido.postres.chocotorta.cantidad > 0 ||
       this.listadoPedido.postres.flan.cantidad > 0 ||
       this.listadoPedido.postres.helado.cantidad > 0
-    )
+    ) {
       pendienteComida = true;
-
-    console.log(this.recibirMesa);
+    }
     this.pedidosService.addOrderToOrders(
       this.listadoPedido,
       this.mesaOcupada ?? this.recibirMesa,
@@ -132,6 +132,8 @@ export class MenuComponent implements OnInit {
       pendienteComida,
       pendienteBebida
     );
+
+    this.fireService.sendNotification("", "mozoComidaNueva");
     this.terminoPedido.emit("encuesta");
   }
 

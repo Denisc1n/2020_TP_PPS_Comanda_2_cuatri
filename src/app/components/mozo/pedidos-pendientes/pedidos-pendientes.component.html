@@ -4,13 +4,6 @@
     <div class="mesas {{ mesa.ocupada }}" *ngFor="let mesa of this.pedidos">
       <span>{{ mesa.numero }}</span>
       <div class="ctn-notificaciones">
-        <div
-          *ngIf="terminado(mesa)"
-          class="btn-entregar"
-          (click)="entregar(mesa.numero)"
-        >
-          <span style="font-size: 20px">Entregar</span>
-        </div>
         <div class="ctn-iconitos">
           <div>
             <ion-icon
@@ -22,6 +15,12 @@
             <ion-icon
               name="fast-food-outline"
               (click)="mesaSeleccionadaComida = mesa"
+            ></ion-icon>
+          </div>
+          <div *ngIf="terminado(mesa)">
+            <ion-icon
+              (click)="entregar(mesa.numero)"
+              name="checkmark-done-outline"
             ></ion-icon>
           </div>
         </div>

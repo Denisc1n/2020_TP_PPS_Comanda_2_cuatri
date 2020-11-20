@@ -23,7 +23,7 @@ export class ClienteComponent implements OnInit {
   opt: string;
   encuestaTerminada: boolean = false;
   clienteEnMesa: boolean = false;
-
+  clienteEsperandoPedido: boolean = false;
   constructor(
     private QRService: QRScannerService,
     private fireService: FirebaseService,
@@ -41,12 +41,23 @@ export class ClienteComponent implements OnInit {
       fireService
         .getClientInTable(this.currentUser.email)
         .then((data: any) => {
+          console.log(data);
           if (!data) {
             this.clienteEnMesa = false;
-          } else {
+          } else if (
+            data[0].asignacion == "true" &&
+            data[0].estado == "pendiente"
+          ) {
+            console.log(data[0].estado);
             this.clienteEnMesa = true;
             this.mesaPedido = data[0].nombre;
             this.estadoCliente = "enMesa";
+          } else {
+            console.log("aca");
+            this.clienteEnMesa = true;
+            this.clienteEsperandoPedido = true;
+            this.mesaPedido = data[0].nombre;
+            this.estadoCliente = "opts";
           }
         })
         .then(() => {
@@ -57,6 +68,9 @@ export class ClienteComponent implements OnInit {
               .then((data: any) => {
                 console.log("data? " + data);
                 if (data != undefined) this.estadoCliente = "listaEspera";
+                else {
+                  this.clienteEnMesa = true;
+                }
               });
           }
         });
@@ -65,10 +79,39 @@ export class ClienteComponent implements OnInit {
         .getDBByDoc("clientesInvitados", this.currentUser.uid)
         .then((data) => (this.dataCurrentUser = data));
 
-      this.fireService
-        .getWaitingList(this.currentUser.uid)
+      fireService
+        .getAnonymousClientInTable(this.currentUser.uid)
         .then((data: any) => {
-          if (data != undefined) this.estadoCliente = "listaEspera";
+          if (!data) {
+            this.clienteEnMesa = false;
+          } else if (
+            data[0].asignacion == "true" &&
+            data[0].estado == "pendiente"
+          ) {
+            console.log("aca");
+            this.clienteEnMesa = true;
+            this.mesaPedido = data[0].nombre;
+            this.estadoCliente = "enMesa";
+          } else {
+            console.log("aca2");
+            this.clienteEsperandoPedido = true;
+            this.mesaPedido = data[0].nombre;
+            this.estadoCliente = "opts";
+          }
+        })
+        .then(() => {
+          if (!this.clienteEnMesa) {
+            console.log("mesa? " + this.clienteEnMesa);
+            this.fireService
+              .getWaitingList(this.currentUser.email)
+              .then((data: any) => {
+                console.log("data? " + data);
+                if (data != undefined) this.estadoCliente = "listaEspera";
+                else {
+                  this.clienteEnMesa = true;
+                }
+              });
+          }
         });
     }
   }
@@ -82,7 +125,7 @@ export class ClienteComponent implements OnInit {
           this.fireService.createDocInDB(
             "listaEspera",
             this.currentUser.email,
-            this.dataCurrentUser
+            { ...this.dataCurrentUser, asignado: false }
           );
         else
           this.fireService.createDocInDB(
@@ -92,7 +135,10 @@ export class ClienteComponent implements OnInit {
           );
 
         this.estadoCliente = "listaEspera";
-        this.fireService.sendNotification(this.currentUser.email, "metre");
+        this.fireService.sendNotification(
+          this.currentUser.email ?? this.currentUser.uid,
+          "metre"
+        );
       } else {
         console.error("Primero debe ir a la lista de espera");
         this.utilidadService.textoMostrar(
@@ -195,6 +241,7 @@ export class ClienteComponent implements OnInit {
           this.mesaOcupada ?? this.mesaPedido,
           datos
         );
+        this.fireService.sendNotification("", "mozoCuenta");
       });
   }
 

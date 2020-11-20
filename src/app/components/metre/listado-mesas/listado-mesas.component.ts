@@ -9,7 +9,8 @@ import { VibrationService } from "src/app/servicios/vibration.service";
   styleUrls: ["./listado-mesas.component.scss"],
 })
 export class ListadoMesasComponent implements OnInit {
-  @Input() clienteSeleccionado;
+  @Input() clienteSeleccionado = null;
+  @Input() showOwnControls = true;
   @Output() volver: EventEmitter<any> = new EventEmitter<any>();
   mesas: any;
   mesaSeleccionada: any;
@@ -21,46 +22,56 @@ export class ListadoMesasComponent implements OnInit {
     this.actualizarLista();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.showOwnControls);
+  }
 
   seleccionarMesa(mesa) {
-    this.mesaSeleccionada = mesa;
-    console.log(this.mesaSeleccionada);
+    if (this.clienteSeleccionado) {
+      this.mesaSeleccionada = mesa;
 
-    // if (this.mesaSeleccionada === mesa) {
-    //   this.s_utilidad.textoMostrar(
-    //     "#modal-error-mesa-text-p",
-    //     "Mesa ocupada",
-    //     "#modal-error-mesa",
-    //     ".ctn-lista-mesas"
-    //   );
-    //   this.vibrationService.error();
-    // }
+      // if (this.mesaSeleccionada === mesa) {
+      //   this.s_utilidad.textoMostrar(
+      //     "#modal-error-mesa-text-p",
+      //     "Mesa ocupada",
+      //     "#modal-error-mesa",
+      //     ".ctn-lista-mesas"
+      //   );
+      //   this.vibrationService.error();
+      // }
 
-    if (mesa.ocupada) {
-      this.s_utilidad.textoMostrar(
-        "#modal-error-mesa-text-p",
-        "Mesa ocupada",
-        "#modal-error-mesa",
-        ".ctn-lista-mesas"
+      if (mesa.ocupada) {
+        this.s_utilidad.textoMostrar(
+          "#modal-error-mesa-text-p",
+          "Mesa ocupada",
+          "#modal-error-mesa",
+          ".ctn-lista-mesas"
+        );
+        this.vibrationService.error();
+        return;
+      }
+
+      if (mesa.asignacion === "true" || mesa.asignacion === "pendiente") {
+        this.s_utilidad.textoMostrar(
+          "#modal-error-mesa-text-p",
+          "Mesa ocupada",
+          "#modal-error-mesa",
+          ".ctn-lista-mesas"
+        );
+        this.vibrationService.error();
+        return;
+      }
+      this.fireService.updateDoc(
+        "listaEspera",
+        this.clienteSeleccionado.correo,
+        { asignado: true }
       );
-      this.vibrationService.error();
-      return;
-    }
 
-    if (mesa.asignacion === "true" || mesa.asignacion === "pendiente") {
-      this.s_utilidad.textoMostrar(
-        "#modal-error-mesa-text-p",
-        "Mesa ocupada",
-        "#modal-error-mesa",
-        ".ctn-lista-mesas"
-      );
-      this.vibrationService.error();
-      return;
+      this.fireService.updateTableAsignation(mesa.nombre);
+      this.actualizarLista();
+      this.clienteSeleccionado = false;
+      this.volver.emit("listaEspera");
     }
-
-    this.fireService.updateTableAsignation(mesa.nombre);
-    this.actualizarLista();
   }
 
   actualizarLista() {

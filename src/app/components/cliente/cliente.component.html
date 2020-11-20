@@ -139,6 +139,7 @@
 <div class="estado-pedido" *ngIf="opt == 'estadoPedido'">
   <app-estado-pedido
     [mesaOcupada]="this.mesaOcupada"
+    [mesaPedido]="this.mesaPedido"
     (volver)="opt = $event"
   ></app-estado-pedido>
 </div>

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { RouteReuseStrategy } from "@angular/router";
+import { RouteReuseStrategy, RouterModule } from "@angular/router";
 
 import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
@@ -17,17 +17,13 @@ import { Vibration } from "@ionic-native/vibration/ngx";
 import { Camera } from "@ionic-native/camera/ngx";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from '@angular/common/http';
-import * as $ from 'jquery';
-import { ComidaNuevoPipe } from './pipes/comida-nuevo.pipe';
-import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
+import { HttpClientModule } from "@angular/common/http";
+import * as $ from "jquery";
+import { ComidaNuevoPipe } from "./pipes/comida-nuevo.pipe";
+import { BebidaNuevoPipe } from "./pipes/bebida-nuevo.pipe";
 
 @NgModule({
-  declarations: [
-    AppComponent,   
-    ComidaNuevoPipe,
-    BebidaNuevoPipe 
-  ],
+  declarations: [AppComponent, ComidaNuevoPipe, BebidaNuevoPipe],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -37,7 +33,7 @@ import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    HttpClientModule,    
+    HttpClientModule,
   ],
   providers: [
     StatusBar,
@@ -45,8 +41,8 @@ import { BebidaNuevoPipe } from './pipes/bebida-nuevo.pipe';
     Vibration,
     Camera,
     BarcodeScanner,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

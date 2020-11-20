@@ -1,4 +1,8 @@
-<ion-icon name="close-circle-sharp" (click)="back()"></ion-icon>
+<ion-icon
+  name="close-circle-sharp"
+  (click)="back()"
+  *ngIf="showOwnControls"
+></ion-icon>
 <div class="ctn-lista-mesas">
   <div class="lista-mesas">
     <div

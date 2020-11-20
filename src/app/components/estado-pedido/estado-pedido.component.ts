@@ -13,6 +13,7 @@ import { VibrationService } from "src/app/servicios/vibration.service";
 })
 export class EstadoPedidoComponent implements OnInit {
   @Input() mesaOcupada: string = "Mesa 1 Buenos Muchachos";
+  @Input() mesaPedido: string = "Mesa 1 Buenos Muchachos";
   @Output() volver: EventEmitter<any> = new EventEmitter<any>();
   mesa: any;
   estado: string;
@@ -23,16 +24,14 @@ export class EstadoPedidoComponent implements OnInit {
     private pedidosService: PedidosService,
     private utilidadService: UtilidadService,
     private vibrationService: VibrationService
-  ) {
-    this.db
-      .collection("mesas")
-      .doc(this.mesaOcupada)
-      .snapshotChanges()
-      .subscribe((data) => this.traerMesa());
-  }
+  ) {}
 
   ngOnInit() {
-    //this.db.collection('notificaciones').doc('due�o').update({email: 'asd@asd.com'})
+    this.db
+      .collection("mesas")
+      .doc(this.mesaOcupada ?? this.mesaPedido)
+      .snapshotChanges()
+      .subscribe((data) => this.traerMesa());
   }
 
   salir() {
@@ -40,22 +39,29 @@ export class EstadoPedidoComponent implements OnInit {
   }
 
   traerMesa() {
-    this.fireService.getTable(this.mesaOcupada).then((dato) => {
-      this.mesa = dato;
-      this.estado = this.upperCaseToFirstUpperCase(
-        this.mesa.estado.toLocaleUpperCase()
-      );
-    });
+    this.fireService
+      .getTable(this.mesaOcupada ?? this.mesaPedido)
+      .then((dato) => {
+        console.log(dato);
+        this.mesa = dato;
+        this.estado = this.upperCaseToFirstUpperCase(
+          this.mesa.estado.toLocaleUpperCase()
+        );
+      });
   }
 
   pedidoRecibido() {
-    if (this.mesa.estado == "entregado")
+    if (this.mesa.estado == "entregado") {
       this.pedidosService.changeOrderStatus(
         "estado",
         "recibido",
-        this.mesaOcupada
+        this.mesaOcupada ?? this.mesaPedido
       );
-    else {
+      this.fireService.sendNotification(
+        this.mesaOcupada ?? this.mesaPedido,
+        "mozoCuenta"
+      );
+    } else {
       this.utilidadService.textoMostrar(
         "#modal-error-text-p-general",
         "El mozo aón no entregó el pedido",
