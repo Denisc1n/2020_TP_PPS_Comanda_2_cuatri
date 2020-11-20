@@ -1,20 +1,26 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import {storage, functions} from 'firebase'
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/internal/operators/map';
-import { FunctionCall } from '@angular/compiler';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { AngularFireAuth } from "angularfire2/auth";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from "angularfire2/firestore";
+import { storage, functions } from "firebase";
+import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
+import { Router } from "@angular/router";
+import { map } from "rxjs/internal/operators/map";
+import { FunctionCall } from "@angular/compiler";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
 })
 export class FirebaseService {
-
-  
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore,/*private snap: AngularFirestoreDocument ,*/ private camera:Camera,private http : HttpClient) { }
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFirestore,
+    /*private snap: AngularFirestoreDocument ,*/ private camera: Camera,
+    private http: HttpClient
+  ) {}
 
   logout() {
     return this.afAuth.auth.signOut();
@@ -321,22 +327,27 @@ export class FirebaseService {
     return tableDoc.docs[0].id;
   }
 
-    sendNotification(value:any, doc:string){
+  sendNotification(value: any, doc: string) {
     this.db.collection("notificaciones").doc(doc).update({ email: value });
   }
 
   removeFromWaitingList(email) {
     this.db.collection("listaEspera").doc(email).delete();
   }
-  
- sendEmail(cliente:any, cuerpo:any, subject:string)
-    {
-      this.http.post(`https://us-central1-comandita-bce01.cloudfunctions.net/mailer`, {
-            to: cliente.correo,
-            message: cuerpo,
-            subject: subject 
-            }).subscribe(res=>{
-              console.log(res);
-            });  
-    }	
+
+  sendEmail(cliente: any, cuerpo: any, subject: string) {
+    this.http
+      .post(`https://us-central1-comandita-bce01.cloudfunctions.net/mailer`, {
+        to: cliente.correo,
+        message: cuerpo,
+        subject: subject,
+      })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  updateTableAsignation(table) {
+    this.db.collection("mesas").doc(table).update({ asignacion: "pendiente" });
+  }
 }
