@@ -9,7 +9,7 @@ export class ChangeStatusColorDirective implements AfterViewInit {
   color: string;
 
   @Input() set changeStatusColor(status: boolean) {
-    if (status == true) {
+    if (status) {
       this.color = "#ffae19";
       this.elementRef.nativeElement.style.backgroundColor = this.color;
     } else {
