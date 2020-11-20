@@ -336,15 +336,19 @@ export class FirebaseService {
   }
 
   sendEmail(cliente: any, cuerpo: any, subject: string) {
-    this.http
-      .post(`https://us-central1-comandita-bce01.cloudfunctions.net/mailer`, {
-        to: cliente.correo,
-        message: cuerpo,
-        subject: subject,
-      })
-      .subscribe((res) => {
-        console.log(res);
-      });
+    try {
+      this.http
+        .post(`https://us-central1-dlp-labo4.cloudfunctions.net/mailer`, {
+          to: cliente.correo,
+          message: cuerpo,
+          subject: subject,
+        })
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   updateTableAsignation(table) {
