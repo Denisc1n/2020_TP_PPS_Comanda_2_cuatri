@@ -45,6 +45,18 @@ export class ListadoMesasComponent implements OnInit {
         ".ctn-lista-mesas"
       );
       this.vibrationService.error();
+      return;
+    }
+
+    if (mesa.asignacion === "true" || mesa.asignacion === "pendiente") {
+      this.s_utilidad.textoMostrar(
+        "#modal-error-mesa-text-p",
+        "Mesa ocupada",
+        "#modal-error-mesa",
+        ".ctn-lista-mesas"
+      );
+      this.vibrationService.error();
+      return;
     }
 
     this.fireService.updateTableAsignation(mesa.nombre);

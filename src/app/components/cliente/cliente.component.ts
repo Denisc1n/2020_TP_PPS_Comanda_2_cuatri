@@ -117,6 +117,7 @@ export class ClienteComponent implements OnInit {
             if (this.estadoCliente == "listaEspera" && data != undefined) {
               if (!data.ocupada) {
                 data.ocupada = true;
+                data.asignacion = "true";
                 data.cliente = this.dataCurrentUser;
                 switch (a.text) {
                   case "Mesa 1 Buenos Muchachos":
