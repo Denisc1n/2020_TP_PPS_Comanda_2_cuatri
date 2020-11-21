@@ -151,7 +151,7 @@ export class ClienteComponent implements OnInit {
 
   scanMesa() {
     let aux: any = this.currentUser.isAnonymous
-      ? this.currentUser.uid
+      ? "anonimo@anonimo.com"
       : this.currentUser.email;
     this.QRService.scan().then((a: any) => {
       this.fireService.getWaitingList(aux).then((datos: any) => {
