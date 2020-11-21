@@ -27,11 +27,14 @@ export class EstadoPedidoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.mesaOcupada)
+    console.log(this.mesaPedido)
     this.db
       .collection("mesas")
       .doc(this.mesaOcupada ?? this.mesaPedido)
       .snapshotChanges()
       .subscribe((data) => this.traerMesa());
+      
   }
 
   salir() {
