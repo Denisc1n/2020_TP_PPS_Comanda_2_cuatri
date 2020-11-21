@@ -258,9 +258,13 @@ export class ClienteComponent implements OnInit {
         } else {
           console.error("todavia no pagaste bro");
           this.utilidadService.textoMostrar(
+            // "#modal-error-text-p-general",
+            // "Todavía no has pagado",
+            // "#btn-pedir-cuenta",
+            // "#container-client"
             "#modal-error-text-p-general",
-            "Todavía no has pagado",
-            "#btn-pedir-cuenta",
+            "La mesa se encuentra ocupada",
+            "#modal-error-general",
             "#container-client"
           );
           this.vibrationService.error();

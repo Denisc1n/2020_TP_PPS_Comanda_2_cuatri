@@ -22,11 +22,16 @@ export class PedidosPendientesComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngOnViewEnter() {
+    this.actualizarLista();
+  }
+
   back() {
     this.volver.emit("home");
   }
 
   actualizarLista() {
+    this.pedidos = [];
     this.fireService.getDB("mesas").then((datos) => {
       this.pedidos = datos;
       for (let mesita of this.pedidos) {

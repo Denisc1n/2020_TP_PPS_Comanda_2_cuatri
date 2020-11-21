@@ -37,6 +37,7 @@ export class CocineroComponent implements OnInit {
             .update({ emitida: true });
         }
       });
+    this.actualizarLista();
   }
 
   back() {
@@ -44,7 +45,10 @@ export class CocineroComponent implements OnInit {
   }
 
   actualizarLista() {
-    this.fireService.getDB("mesas").then((datos) => (this.consultas = datos));
+    this.fireService.getDB("mesas").then((datos) => {
+      this.consultas = [];
+      this.consultas = datos;
+    });
   }
 
   displayModal(mesa: any) {

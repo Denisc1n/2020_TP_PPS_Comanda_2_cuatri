@@ -57,10 +57,6 @@ export class EstadoPedidoComponent implements OnInit {
         "recibido",
         this.mesaOcupada ?? this.mesaPedido
       );
-      this.fireService.sendNotification(
-        this.mesaOcupada ?? this.mesaPedido,
-        "mozoCuenta"
-      );
     } else {
       this.utilidadService.textoMostrar(
         "#modal-error-text-p-general",

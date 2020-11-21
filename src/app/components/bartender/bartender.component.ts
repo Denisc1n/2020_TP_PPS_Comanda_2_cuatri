@@ -37,6 +37,7 @@ export class BartenderComponent implements OnInit {
             .update({ emitida: true });
         }
       });
+    this.actualizarLista();
   }
 
   back() {
@@ -45,6 +46,7 @@ export class BartenderComponent implements OnInit {
 
   actualizarLista() {
     this.fireService.getDB("mesas").then((datos) => {
+      this.consultas = [];
       this.consultas = datos;
     });
   }
