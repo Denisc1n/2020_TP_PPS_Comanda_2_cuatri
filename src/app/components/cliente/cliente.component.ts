@@ -272,16 +272,6 @@ export class ClienteComponent implements OnInit {
           this.route.navigate(["login"]);
         } else {
           this.fireService.sendNotification("", "clienteNoPago");
-          this.utilidadService.textoMostrar(
-            // "#modal-error-text-p-general",
-            // "Todavía no has pagado",
-            // "#btn-pedir-cuenta",
-            // "#container-client"
-            "#modal-error-text-p-general",
-            "La mesa se encuentra ocupada",
-            "#modal-error-general",
-            "#container-client"
-          );
           this.vibrationService.error();
         }
       });
