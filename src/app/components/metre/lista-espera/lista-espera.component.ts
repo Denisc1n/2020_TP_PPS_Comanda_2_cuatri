@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FirebaseService } from "src/app/servicios/firebase.service";
 
 import { AngularFirestore } from "angularfire2/firestore";
@@ -14,6 +14,7 @@ export class ListaEsperaComponent implements OnInit {
   mesas;
   clienteSeleccionado: any;
   showOwnControls = false;
+  @Input() returnToPending;
   @Output() volver: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
@@ -27,12 +28,16 @@ export class ListaEsperaComponent implements OnInit {
   ngOnInit() {
     //this.fireService.snapshotsarasa(this.traerLista());
   }
+  ngOnViewEnter() {
+    this.traerLista();
+  }
 
   back() {
     this.volver.emit("home");
   }
 
   traerLista() {
+    this.clientes = [];
     this.fireService.getDB("listaEspera").then((datos: any) => {
       datos.forEach((element) => {
         if (!element.asignado) {
@@ -58,5 +63,12 @@ export class ListaEsperaComponent implements OnInit {
 
   handleReturn($event) {
     this.volver.emit("listaEspera");
+  }
+
+  handleReturnEvent() {
+    // this.actualizarListaMesas();
+    this.traerLista();
+
+    this.clienteSeleccionado = null;
   }
 }
