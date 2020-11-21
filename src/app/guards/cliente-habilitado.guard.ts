@@ -11,7 +11,7 @@ import { VibrationService } from '../servicios/vibration.service';
 export class ClienteHabilitadoGuard implements CanActivate {
 
   constructor(private fire : FirebaseService, private vibrationService:VibrationService,private utilidad : UtilidadService){}
-  current: any;
+  current :any;
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -27,7 +27,8 @@ export class ClienteHabilitadoGuard implements CanActivate {
               return true;
             else{
               this.utilidad.textoMostrar("#mensajeTexto", "Usted no se encuentra autorizado, contactese con el mozo", "#mensajeLogin", "");
-              this.vibrationService.error()
+              this.vibrationService.error();
+              return false;
             }
           }
           else{

@@ -1,9 +1,15 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFirestore } from "angularfire2/firestore";
-import { storage } from "firebase";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from "angularfire2/firestore";
+import { storage, functions } from "firebase";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { Router } from "@angular/router";
+import { map } from "rxjs/internal/operators/map";
+import { FunctionCall } from "@angular/compiler";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +18,8 @@ export class FirebaseService {
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
-    private camera: Camera
+    /*private snap: AngularFirestoreDocument ,*/ private camera: Camera,
+    private http: HttpClient
   ) {}
 
   logout() {
@@ -232,7 +239,7 @@ export class FirebaseService {
     return new Promise((resolve, reject) => {
       this.db
         .collection("mesas", (ref) => {
-          return ref.where("cliente.consulta", ">", "");
+          return ref.where("consulta", ">", "");
         })
         .valueChanges()
         .subscribe(
@@ -253,6 +260,26 @@ export class FirebaseService {
       this.db
         .collection("mesas", (ref) => {
           return ref.where("cliente.correo", "==", email);
+        })
+        .valueChanges()
+        .subscribe(
+          (pedidos: any) => {
+            if (pedidos.length == 0) {
+              resolve(null);
+            } else {
+              resolve(pedidos);
+            }
+          },
+          (error) => reject(error)
+        );
+    });
+  }
+
+  getAnonymousClientInTable(uid) {
+    return new Promise((resolve, reject) => {
+      this.db
+        .collection("mesas", (ref) => {
+          return ref.where("cliente.id", "==", uid);
         })
         .valueChanges()
         .subscribe(
@@ -320,11 +347,35 @@ export class FirebaseService {
     return tableDoc.docs[0].id;
   }
 
-  sendNotification(value: string, doc: string) {
-    this.db.collection("notificaciones").doc(doc).update({ email: value });
+  sendNotification(value: any, doc: string) {
+    console.log(doc);
+    this.db
+      .collection("notificaciones")
+      .doc(doc)
+      .update({ email: "AAA", emitida: false });
   }
 
   removeFromWaitingList(email) {
     this.db.collection("listaEspera").doc(email).delete();
+  }
+
+  sendEmail(cliente: any, cuerpo: any, subject: string) {
+    try {
+      this.http
+        .post(`https://us-central1-dlp-labo4.cloudfunctions.net/mailer`, {
+          to: cliente.correo,
+          message: cuerpo,
+          subject: subject,
+        })
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  updateTableAsignation(table) {
+    this.db.collection("mesas").doc(table).update({ asignacion: "pendiente" });
   }
 }
