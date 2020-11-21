@@ -22,9 +22,7 @@ export class ListadoMesasComponent implements OnInit {
     this.actualizarLista();
   }
 
-  ngOnInit() {
-    console.log(this.showOwnControls);
-  }
+  ngOnInit() {}
 
   seleccionarMesa(mesa) {
     if (this.clienteSeleccionado) {
@@ -61,16 +59,13 @@ export class ListadoMesasComponent implements OnInit {
         this.vibrationService.error();
         return;
       }
+      this.fireService.updateTableAsignation(mesa.nombre);
       this.fireService.updateDoc(
         "listaEspera",
         this.clienteSeleccionado.correo,
         { asignado: true }
       );
-
-      this.fireService.updateTableAsignation(mesa.nombre);
-      this.actualizarLista();
-      this.clienteSeleccionado = false;
-      this.volver.emit("listaEspera");
+      this.volver.emit("listaEsperaListadoMesas");
     }
   }
 

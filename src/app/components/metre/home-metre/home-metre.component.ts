@@ -39,4 +39,8 @@ export class HomeMetreComponent implements OnInit {
       $("#notificacion-push").css("top", "-15%");
     }, 3000);
   }
+  handleReturn() {
+    this.redirect = "listaEspera";
+    console.log("return");
+  }
 }
