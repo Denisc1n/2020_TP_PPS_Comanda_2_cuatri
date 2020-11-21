@@ -37,7 +37,7 @@ h1
 {
     text-align: center;
     font-family: "resto";
-    font-size: 4.5em;
+    font-size: 3.5em;
     letter-spacing: 1px;
     padding: 10%;
 }
@@ -50,6 +50,10 @@ form
     flex-flow: column;
     width: 70%;
     height: 95%;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding-left: 2vh;
+    padding-right: 2vh;
 }
 
 .form-input
@@ -95,7 +99,7 @@ ion-input
     width: 70%;
     font-size: 1em;
     border-radius: 30px;
-    background: rgb(122, 1, 1);
+    background: #2488ca;
     outline: none;
     font-weight: bold;
 }
@@ -180,7 +184,7 @@ ion-icon
 }
 
 .botones-registro button {
-    background: rgb(180, 0, 0);//rgba(65, 32, 119, 0.9);
+    background: #2488CA; //rgba(65, 32, 119, 0.9);
     width: 100%;
     height: 35%;
     border-radius: 5px;
@@ -193,7 +197,7 @@ ion-icon
 }
 
 .botones-registro button:active{
-    background: rgb(122, 1, 1)//rgb(42, 21, 77);
+    background: #01097a //rgb(42, 21, 77);
 }
 
 .form-input-select

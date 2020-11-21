@@ -46,7 +46,8 @@ export class LoginPage implements OnInit {
       $("#formUsuario").css("opacity","1");
       $("#botonUsuario").attr("value","Cerrar");
       $("#botonInvitado").css("display","none");
-      $(".usuarios").fadeIn()
+      $(".usuarios").fadeIn()      
+      $(".contenedorLogin").css("background", "rgba(0, 0, 0, 0.6)");
     } else {
       $("#formUsuario").css("opacity","0");
       setTimeout(() => {
@@ -55,6 +56,7 @@ export class LoginPage implements OnInit {
         $("#botonUsuario").attr("value","Usuario");
         $("#botonInvitado").css("display","block");
         $(".usuarios").fadeOut();
+        $(".contenedorLogin").css("background", "rgba(0, 0, 0, 0)")
       }, 100);
       
     }
@@ -69,6 +71,7 @@ export class LoginPage implements OnInit {
       $("#formInvitado").css("opacity","1");
       $("#botonInvitado").attr("value","Cerrar");
       $("#botonUsuario").css("display","none");
+      $(".contenedorLogin").css("background", "rgba(0, 0, 0, 0.6)");
     } else {
       $("#formInvitado").css("opacity","0");
       setTimeout(() => {
@@ -76,6 +79,7 @@ export class LoginPage implements OnInit {
         $("#formInvitado").css("width","0%");
         $("#botonInvitado").attr("value","Invitado");
         $("#botonUsuario").css("display","block");
+        $(".contenedorLogin").css("background", "rgba(0, 0, 0, 0)");
       }, 100);
     }
   }
