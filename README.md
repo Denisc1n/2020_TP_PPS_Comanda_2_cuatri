@@ -62,23 +62,38 @@ En principio se debe indicar que perfil se desea generar, luego podra generar us
 El inicio de la experiencia se da con una simple pantalla adonde escanear un codigo:
 ![](src/assets/readmePictures/listaIngreso.PNG "Pantalla:")
 
-### Desde este punto, escaneando el codigo en la mesa le dara acceso al menu, a las diferentes interacciones con el personal gastronomico y por supuesto para solciitar la cuenta, chequear el estado del pedido, y afines.
+Ademas cuenta con un menu...
+
+![](src/assets/readmePictures/menuCliente.jpg)
+![](src/assets/readmePictures/menuPostre.jpg)
+![](src/assets/readmePictures/menuBebida.jpg)
+![](src/assets/readmePictures/menuPlatos.jpg)
+
+Posibilidades de consultar al mozo.
+![](src/assets/readmePictures/consultaAlMozo.jpg)
+
+Sistema de propinas basado en satisfaccion del cliente.
+![](src/assets/readmePictures/encuestaCliente.jpg)
+
+El cliente ademas posee la capacidad de revisar su estado:
+![](src/assets/readmePictures/estadoPedidoCliente.jpg)
+
 
 ##Mozo: El mozo tiene varias funciones fundamentales para la gestion de su espacio de trabajo.
 
-![](src/assets/readmePictures/mozoPrincipal.PNG "Pantalla:")
-![](src/assets/readmePictures/confirmarPedidos.PNG "Pantalla:")
-![](src/assets/readmePictures/consultasSobrePedidos.PNG "Pantalla:")
-![](src/assets/readmePictures/pagos.PNG "Pantalla:")
+![](src/assets/readmePictures/mozoPrincipal.PNG)
+![](src/assets/readmePictures/confirmarPedidos.PNG)
+![](src/assets/readmePictures/consultasSobrePedidos.PNG)
+![](src/assets/readmePictures/pagos.PNG)
 
 ## Metre
-![](src/assets/readmePictures/metre-main.PNG "Pantalla:")
-![](src/assets/readmePictures/metre-espera.PNG "Pantalla:")
-![](src/assets/readmePictures/metre-vista.PNG "Pantalla:")
+![](src/assets/readmePictures/metre-main.PNG)
+![](src/assets/readmePictures/metre-espera.PNG)
+![](src/assets/readmePictures/metre-vista.PNG)
 
 ## Cocinero
 El cocinero posee una pantalla integra de atencion y vision de pedidos.
-![](src/assets/readmePictures/cocinero-main.PNG "Pantalla:")
+![](src/assets/readmePictures/cocinero-main.PNG)
 
 ## Bartender
 El bartender posee una pantalla integra de atencion y vision de pedidos.
