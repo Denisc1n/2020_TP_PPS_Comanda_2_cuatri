@@ -88,12 +88,10 @@ export class ClienteComponent implements OnInit {
             data[0].asignacion == "true" &&
             data[0].estado == "pendiente"
           ) {
-            console.log("aca");
             this.clienteEnMesa = true;
             this.mesaPedido = data[0].nombre;
             this.estadoCliente = "enMesa";
           } else {
-            console.log("aca2");
             this.clienteEsperandoPedido = true;
             this.mesaPedido = data[0].nombre;
             this.estadoCliente = "opts";
@@ -128,11 +126,10 @@ export class ClienteComponent implements OnInit {
             { ...this.dataCurrentUser, asignado: false }
           );
         else
-          this.fireService.createDocInDB(
-            "listaEspera",
-            this.currentUser.uid,
-            this.dataCurrentUser
-          );
+          this.fireService.createDocInDB("listaEspera", "anonimo@anonimo.com", {
+            ...this.dataCurrentUser,
+            correo: "anonimo@anonimo.com",
+          });
 
         this.estadoCliente = "listaEspera";
         this.fireService.sendNotification(
