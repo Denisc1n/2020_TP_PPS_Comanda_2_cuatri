@@ -106,6 +106,8 @@ Implementacion de Iconos, implementacion de los codigos QR en el repositorio con
 Confeccion del README.md.
 
 Semana del 15 al 22 de Noviembre (Pre Entrega con Nota):
-Adrian Brizuela Notificaciones Push, Testeo en dispositivos, Implementacion de pipes)
-Denis Leonel Pedemonte Notificaciones Push, cambios en el README, credenciales Gmail, bugfixes, testeo en dispositivos, Pantalla de estado de pedido, Implementacion de Pipes)
+
+Adrian Brizuela Notificaciones Push, Testeo en dispositivos, Implementacion de pipes, cambios de estilo.
+Denis Leonel Pedemonte Notificaciones Push, cambios en el README, credenciales Gmail, bugfixes, testeo en dispositivos, Pantalla de estado de pedido, Implementacion de Pipes, bug fixes, tareas de optimizacion de flujo de carga de pedido, Mejoras en flujo de usuario anonimo (invitado). Pruebas de flujo completo.
+
 
