@@ -5,6 +5,8 @@ import { PedidosService } from "src/app/servicios/pedidos.service";
 import { UtilidadService } from "src/app/servicios/utilidad.service";
 import { VibrationService } from "src/app/servicios/vibration.service";
 import { Router } from "@angular/router";
+import { AngularFirestore } from "angularfire2/firestore";
+import * as $ from "jquery";
 
 @Component({
   selector: "app-cliente",
@@ -30,7 +32,8 @@ export class ClienteComponent implements OnInit {
     private pedidoService: PedidosService,
     private utilidadService: UtilidadService,
     private vibrationService: VibrationService,
-    private route: Router
+    private route: Router,
+    private db: AngularFirestore
   ) {
     this.currentUser = fireService.getCurrentUser();
 
@@ -114,7 +117,21 @@ export class ClienteComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.db
+      .collection("notificaciones")
+      .doc("clientePago")
+      .snapshotChanges()
+      .subscribe((data: any) => {
+        if (!data?.payload?.data().emitida) {
+          this.activarNotificacion();
+          this.db
+            .collection("notificaciones")
+            .doc("clienteNoPago")
+            .update({ emitida: true });
+        }
+      });
+  }
 
   scanListaDeEspera() {
     this.QRService.scan().then((a: any) => {
@@ -253,7 +270,7 @@ export class ClienteComponent implements OnInit {
           this.estadoCliente = "despedida";
           this.route.navigate(["login"]);
         } else {
-          console.error("todavia no pagaste bro");
+          this.fireService.sendNotification("", "clienteNoPago");
           this.utilidadService.textoMostrar(
             // "#modal-error-text-p-general",
             // "Todavía no has pagado",
@@ -277,5 +294,15 @@ export class ClienteComponent implements OnInit {
   }
   salir() {
     this.opt = undefined;
+  }
+
+  activarNotificacion() {
+    $("#notificacion-push").css("top", "2%");
+    $("#content-title").text("Estado pago");
+    $("#content-msj").text("Aguarde un momento, ya recogeremos su pago.");
+
+    setTimeout(() => {
+      $("#notificacion-push").css("top", "-15%");
+    }, 3000);
   }
 }
