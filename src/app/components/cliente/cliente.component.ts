@@ -120,10 +120,11 @@ export class ClienteComponent implements OnInit {
   ngOnInit() {
     this.db
       .collection("notificaciones")
-      .doc("clientePago")
+      .doc("clienteNoPago")
       .snapshotChanges()
       .subscribe((data: any) => {
         if (!data?.payload?.data().emitida) {
+          console.log("aca");
           this.activarNotificacion();
           this.db
             .collection("notificaciones")
