@@ -251,6 +251,8 @@ export class ClienteComponent implements OnInit {
         datos.pagoPendiente = true;
         this.opt = "pagar";
         this.mesaParaPagar = datos;
+
+        console.log(this.mesaParaPagar);
         this.fireService.updateDoc(
           "mesas",
           this.mesaOcupada ?? this.mesaPedido,
@@ -268,8 +270,27 @@ export class ClienteComponent implements OnInit {
           this.fireService.removeFromWaitingList(this.currentUser.email);
           this.pago = true;
           this.opt = "";
-          this.estadoCliente = "despedida";
-          this.route.navigate(["login"]);
+          this.estadoCliente = undefined;
+          this.fireService.updateDoc(
+            "mesas",
+            this.mesaOcupada ?? this.mesaPedido,
+            {
+              apellido: "",
+              asignacion: "false",
+              clave: "",
+              cliente: null,
+              encuesta: null,
+              ocupada: false,
+              pagoPendiente: false,
+              pendienteComida: false,
+              pendienteBebida: false,
+              dni: 0,
+            }
+          );
+          this.fireService.sendTableClearNotification(
+            this.mesaOcupada ?? this.mesaPedido,
+            "metreMesaLiberada"
+          );
         } else {
           this.fireService.sendNotification("", "clienteNoPago");
           this.vibrationService.error();

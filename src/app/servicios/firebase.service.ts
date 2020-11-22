@@ -348,11 +348,33 @@ export class FirebaseService {
   }
 
   sendNotification(value: any, doc: string) {
-    console.log(doc);
     this.db
       .collection("notificaciones")
       .doc(doc)
       .update({ email: "AAA", emitida: false });
+  }
+
+  sendTableClearNotification(value: any, doc: string) {
+    let tableNumber;
+    switch (value) {
+      case "Mesa 1 Buenos Muchachos":
+        tableNumber = 1;
+        break;
+      case "Mesa 2 Buenos Muchachos":
+        tableNumber = 2;
+        break;
+      case "Mesa 3 Buenos Muchachos":
+        tableNumber = 3;
+        break;
+      case "Mesa 4 Buenos Muchachos":
+        tableNumber = 4;
+        break;
+    }
+
+    this.db
+      .collection("notificaciones")
+      .doc(doc)
+      .update({ mesa: tableNumber, emitida: false });
   }
 
   removeFromWaitingList(email) {

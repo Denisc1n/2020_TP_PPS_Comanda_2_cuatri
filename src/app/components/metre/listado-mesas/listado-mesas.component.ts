@@ -65,6 +65,7 @@ export class ListadoMesasComponent implements OnInit {
         this.clienteSeleccionado.correo,
         { asignado: true }
       );
+      this.vibrationService.success();
       this.volver.emit("listaEsperaListadoMesas");
     }
   }
