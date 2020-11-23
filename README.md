@@ -1,8 +1,8 @@
 # Buenos Muchachos
 
-#Integrantes
-##Adrian Brizuela
-##Denis Leonel Pedmeonte
+# Integrantes
+## Adrian Brizuela
+## Denis Leonel Pedmeonte
 
 Buenos Muchachos es una aplicacion de gestion de un restaurant. Basicamente presenta herramientas para administrar operaciones tanto internas como de cara al cliente.
 
@@ -124,5 +124,9 @@ Semana del 15 al 22 de Noviembre (Pre Entrega con Nota):
 
 Adrian Brizuela Notificaciones Push, Testeo en dispositivos, Implementacion de pipes, cambios de estilo.
 Denis Leonel Pedemonte Notificaciones Push, cambios en el README, credenciales Gmail, bugfixes, testeo en dispositivos, Pantalla de estado de pedido, Implementacion de Pipes, bug fixes, tareas de optimizacion de flujo de carga de pedido, Mejoras en flujo de usuario anonimo (invitado). Pruebas de flujo completo.
+
+Semana del 23 al 28 de Noviembre (Entrega con Nota):
+Adrian Brizuela:Testeo de flujos para videos finales.
+Denis Leonel Pedemonte: Correccion de patrones vibratorios, testeo de notificaciones. Actualizacion Readme.
 
 
