@@ -3,6 +3,7 @@ import { FirebaseService } from "src/app/servicios/firebase.service";
 import { AngularFirestore } from "angularfire2/firestore";
 import { PedidosService } from "src/app/servicios/pedidos.service";
 import * as $ from "jquery";
+import { VibrationService } from "../../servicios/vibration.service";
 
 @Component({
   selector: "app-bartender",
@@ -18,7 +19,8 @@ export class BartenderComponent implements OnInit {
   constructor(
     private fireService: FirebaseService,
     private db: AngularFirestore,
-    private pedidosService: PedidosService
+    private pedidosService: PedidosService,
+    private vibrationService: VibrationService
   ) {
     this.actualizarLista();
   }
@@ -70,7 +72,7 @@ export class BartenderComponent implements OnInit {
     $("#notificacion-push").css("top", "2%");
     $("#content-title").text("Actualizacion pedido");
     $("#content-msj").text("Tiene un nuevo pedido de bebida");
-
+    this.vibrationService.success();
     setTimeout(() => {
       $("#notificacion-push").css("top", "-15%");
     }, 3000);

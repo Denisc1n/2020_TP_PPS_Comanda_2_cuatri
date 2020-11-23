@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFirestore } from "angularfire2/firestore";
 import * as $ from "jquery";
+import { VibrationService } from "../../../servicios/vibration.service";
 
 @Component({
   selector: "app-home-mozo",
@@ -14,7 +15,10 @@ export class HomeMozoComponent implements OnInit {
   firstTimeComida = 0;
   firstTimeBebida = 0;
 
-  constructor(private db: AngularFirestore) {}
+  constructor(
+    private db: AngularFirestore,
+    private vibrationService: VibrationService
+  ) {}
 
   ngOnInit() {
     this.db
@@ -87,7 +91,7 @@ export class HomeMozoComponent implements OnInit {
     $("#notificacion-push").css("top", "2%");
     $("#content-title").text("Nueva consulta");
     $("#content-msj").text("Tiene una nueva consulta");
-
+    this.vibrationService.success();
     setTimeout(() => {
       $("#notificacion-push").css("top", "-15%");
     }, 3000);
@@ -96,7 +100,7 @@ export class HomeMozoComponent implements OnInit {
     $("#notificacion-push").css("top", "2%");
     $("#content-title").text("Actualizacion pedido");
     $("#content-msj").text("Ya está la comida lista!");
-
+    this.vibrationService.success();
     setTimeout(() => {
       $("#notificacion-push").css("top", "-15%");
     }, 3000);
@@ -106,7 +110,7 @@ export class HomeMozoComponent implements OnInit {
     $("#notificacion-push").css("top", "2%");
     $("#content-title").text("Nuevo pedido");
     $("#content-msj").text("¡Hemos recibido un nuevo pedido!");
-
+    this.vibrationService.success();
     setTimeout(() => {
       $("#notificacion-push").css("top", "-15%");
     }, 3000);

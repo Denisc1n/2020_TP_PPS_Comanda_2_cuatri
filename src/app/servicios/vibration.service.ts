@@ -8,9 +8,9 @@ export class VibrationService {
   constructor(private vibration: Vibration) {}
 
   error() {
-    this.vibration.vibrate([150, 15, 150]);
+    this.vibration.vibrate([500, 250, 500]);
   }
   success() {
-    this.vibration.vibrate([70, 7, 70]);
+    this.vibration.vibrate([250, 25, 250]);
   }
 }

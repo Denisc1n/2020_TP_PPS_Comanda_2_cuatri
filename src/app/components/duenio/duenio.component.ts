@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AngularFirestore } from "angularfire2/firestore";
 import { FirebaseService } from "src/app/servicios/firebase.service";
 import * as $ from "jquery";
+import { VibrationService } from "../../servicios/vibration.service";
 
 @Component({
   selector: "app-duenio",
@@ -15,7 +16,8 @@ export class DuenioComponent implements OnInit {
   clientes: any;
   constructor(
     private db: AngularFirestore,
-    private fireService: FirebaseService
+    private fireService: FirebaseService,
+    private vibrationService: VibrationService
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class DuenioComponent implements OnInit {
     $("#notificacion-push").css("top", "2%");
     $("#content-title").text("Nuevo Usuario");
     $("#content-msj").text("Tiene un usuario nuevo pendiente de confirmación");
-
+    this.vibrationService.success();
     this.fireService.getDisabledClient().then((datos) => {
       this.clientes = datos;
 
